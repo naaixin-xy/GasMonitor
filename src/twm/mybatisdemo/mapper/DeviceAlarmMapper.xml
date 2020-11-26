@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="twm.mybatisdemo.mapper.DeviceAlarmMapper">
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.DeviceAlarm">
+    <id column="alarm_id" jdbcType="INTEGER" property="alarmId" />
+    <result column="alarm_category" jdbcType="TINYINT" property="alarmCategory" />
+    <result column="alarm_device_id" jdbcType="INTEGER" property="alarmDeviceId" />
+    <result column="alarm_longitude" jdbcType="REAL" property="alarmLongitude" />
+    <result column="alarm_latitude" jdbcType="REAL" property="alarmLatitude" />
+    <result column="position_time" jdbcType="TIMESTAMP" property="positionTime" />
+    <result column="alarm_time" jdbcType="TIMESTAMP" property="alarmTime" />
+    <result column="alarm_note" jdbcType="VARCHAR" property="alarmNote" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    alarm_id, alarm_category, alarm_device_id, alarm_longitude, alarm_latitude, position_time, 
+    alarm_time, alarm_note
+  </sql>
+  <select id="selectByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_alarm
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from device_alarm
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample">
+    delete from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    insert into device_alarm (alarm_id, alarm_category, alarm_device_id, 
+      alarm_longitude, alarm_latitude, position_time, 
+      alarm_time, alarm_note)
+    values (#{alarmId,jdbcType=INTEGER}, #{alarmCategory,jdbcType=TINYINT}, #{alarmDeviceId,jdbcType=INTEGER}, 
+      #{alarmLongitude,jdbcType=REAL}, #{alarmLatitude,jdbcType=REAL}, #{positionTime,jdbcType=TIMESTAMP}, 
+      #{alarmTime,jdbcType=TIMESTAMP}, #{alarmNote,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    insert into device_alarm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alarmId != null">
+        alarm_id,
+      </if>
+      <if test="alarmCategory != null">
+        alarm_category,
+      </if>
+      <if test="alarmDeviceId != null">
+        alarm_device_id,
+      </if>
+      <if test="alarmLongitude != null">
+        alarm_longitude,
+      </if>
+      <if test="alarmLatitude != null">
+        alarm_latitude,
+      </if>
+      <if test="positionTime != null">
+        position_time,
+      </if>
+      <if test="alarmTime != null">
+        alarm_time,
+      </if>
+      <if test="alarmNote != null">
+        alarm_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alarmId != null">
+        #{alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmCategory != null">
+        #{alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="alarmDeviceId != null">
+        #{alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLongitude != null">
+        #{alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="alarmLatitude != null">
+        #{alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="positionTime != null">
+        #{positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmTime != null">
+        #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmNote != null">
+        #{alarmNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample" resultType="java.lang.Long">
+    select count(*) from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update device_alarm
+    <set>
+      <if test="record.alarmId != null">
+        alarm_id = #{record.alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmCategory != null">
+        alarm_category = #{record.alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="record.alarmDeviceId != null">
+        alarm_device_id = #{record.alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmLongitude != null">
+        alarm_longitude = #{record.alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="record.alarmLatitude != null">
+        alarm_latitude = #{record.alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="record.positionTime != null">
+        position_time = #{record.positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alarmTime != null">
+        alarm_time = #{record.alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alarmNote != null">
+        alarm_note = #{record.alarmNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update device_alarm
+    set alarm_id = #{record.alarmId,jdbcType=INTEGER},
+      alarm_category = #{record.alarmCategory,jdbcType=TINYINT},
+      alarm_device_id = #{record.alarmDeviceId,jdbcType=INTEGER},
+      alarm_longitude = #{record.alarmLongitude,jdbcType=REAL},
+      alarm_latitude = #{record.alarmLatitude,jdbcType=REAL},
+      position_time = #{record.positionTime,jdbcType=TIMESTAMP},
+      alarm_time = #{record.alarmTime,jdbcType=TIMESTAMP},
+      alarm_note = #{record.alarmNote,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    update device_alarm
+    <set>
+      <if test="alarmCategory != null">
+        alarm_category = #{alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="alarmDeviceId != null">
+        alarm_device_id = #{alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLongitude != null">
+        alarm_longitude = #{alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="alarmLatitude != null">
+        alarm_latitude = #{alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="positionTime != null">
+        position_time = #{positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmTime != null">
+        alarm_time = #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmNote != null">
+        alarm_note = #{alarmNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    update device_alarm
+    set alarm_category = #{alarmCategory,jdbcType=TINYINT},
+      alarm_device_id = #{alarmDeviceId,jdbcType=INTEGER},
+      alarm_longitude = #{alarmLongitude,jdbcType=REAL},
+      alarm_latitude = #{alarmLatitude,jdbcType=REAL},
+      position_time = #{positionTime,jdbcType=TIMESTAMP},
+      alarm_time = #{alarmTime,jdbcType=TIMESTAMP},
+      alarm_note = #{alarmNote,jdbcType=VARCHAR}
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.DeviceAlarm">
+    <id column="alarm_id" jdbcType="INTEGER" property="alarmId" />
+    <result column="alarm_category" jdbcType="TINYINT" property="alarmCategory" />
+    <result column="alarm_device_id" jdbcType="INTEGER" property="alarmDeviceId" />
+    <result column="alarm_longitude" jdbcType="REAL" property="alarmLongitude" />
+    <result column="alarm_latitude" jdbcType="REAL" property="alarmLatitude" />
+    <result column="position_time" jdbcType="TIMESTAMP" property="positionTime" />
+    <result column="alarm_time" jdbcType="TIMESTAMP" property="alarmTime" />
+    <result column="alarm_note" jdbcType="VARCHAR" property="alarmNote" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    alarm_id, alarm_category, alarm_device_id, alarm_longitude, alarm_latitude, position_time, 
+    alarm_time, alarm_note
+  </sql>
+  <select id="selectByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_alarm
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from device_alarm
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample">
+    delete from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    insert into device_alarm (alarm_id, alarm_category, alarm_device_id, 
+      alarm_longitude, alarm_latitude, position_time, 
+      alarm_time, alarm_note)
+    values (#{alarmId,jdbcType=INTEGER}, #{alarmCategory,jdbcType=TINYINT}, #{alarmDeviceId,jdbcType=INTEGER}, 
+      #{alarmLongitude,jdbcType=REAL}, #{alarmLatitude,jdbcType=REAL}, #{positionTime,jdbcType=TIMESTAMP}, 
+      #{alarmTime,jdbcType=TIMESTAMP}, #{alarmNote,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    insert into device_alarm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alarmId != null">
+        alarm_id,
+      </if>
+      <if test="alarmCategory != null">
+        alarm_category,
+      </if>
+      <if test="alarmDeviceId != null">
+        alarm_device_id,
+      </if>
+      <if test="alarmLongitude != null">
+        alarm_longitude,
+      </if>
+      <if test="alarmLatitude != null">
+        alarm_latitude,
+      </if>
+      <if test="positionTime != null">
+        position_time,
+      </if>
+      <if test="alarmTime != null">
+        alarm_time,
+      </if>
+      <if test="alarmNote != null">
+        alarm_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alarmId != null">
+        #{alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmCategory != null">
+        #{alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="alarmDeviceId != null">
+        #{alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLongitude != null">
+        #{alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="alarmLatitude != null">
+        #{alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="positionTime != null">
+        #{positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmTime != null">
+        #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmNote != null">
+        #{alarmNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample" resultType="java.lang.Long">
+    select count(*) from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update device_alarm
+    <set>
+      <if test="record.alarmId != null">
+        alarm_id = #{record.alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmCategory != null">
+        alarm_category = #{record.alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="record.alarmDeviceId != null">
+        alarm_device_id = #{record.alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmLongitude != null">
+        alarm_longitude = #{record.alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="record.alarmLatitude != null">
+        alarm_latitude = #{record.alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="record.positionTime != null">
+        position_time = #{record.positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alarmTime != null">
+        alarm_time = #{record.alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alarmNote != null">
+        alarm_note = #{record.alarmNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update device_alarm
+    set alarm_id = #{record.alarmId,jdbcType=INTEGER},
+      alarm_category = #{record.alarmCategory,jdbcType=TINYINT},
+      alarm_device_id = #{record.alarmDeviceId,jdbcType=INTEGER},
+      alarm_longitude = #{record.alarmLongitude,jdbcType=REAL},
+      alarm_latitude = #{record.alarmLatitude,jdbcType=REAL},
+      position_time = #{record.positionTime,jdbcType=TIMESTAMP},
+      alarm_time = #{record.alarmTime,jdbcType=TIMESTAMP},
+      alarm_note = #{record.alarmNote,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    update device_alarm
+    <set>
+      <if test="alarmCategory != null">
+        alarm_category = #{alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="alarmDeviceId != null">
+        alarm_device_id = #{alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLongitude != null">
+        alarm_longitude = #{alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="alarmLatitude != null">
+        alarm_latitude = #{alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="positionTime != null">
+        position_time = #{positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmTime != null">
+        alarm_time = #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmNote != null">
+        alarm_note = #{alarmNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    update device_alarm
+    set alarm_category = #{alarmCategory,jdbcType=TINYINT},
+      alarm_device_id = #{alarmDeviceId,jdbcType=INTEGER},
+      alarm_longitude = #{alarmLongitude,jdbcType=REAL},
+      alarm_latitude = #{alarmLatitude,jdbcType=REAL},
+      position_time = #{positionTime,jdbcType=TIMESTAMP},
+      alarm_time = #{alarmTime,jdbcType=TIMESTAMP},
+      alarm_note = #{alarmNote,jdbcType=VARCHAR}
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.DeviceAlarm">
+    <id column="alarm_id" jdbcType="INTEGER" property="alarmId" />
+    <result column="alarm_category" jdbcType="TINYINT" property="alarmCategory" />
+    <result column="alarm_device_id" jdbcType="INTEGER" property="alarmDeviceId" />
+    <result column="alarm_longitude" jdbcType="REAL" property="alarmLongitude" />
+    <result column="alarm_latitude" jdbcType="REAL" property="alarmLatitude" />
+    <result column="position_time" jdbcType="TIMESTAMP" property="positionTime" />
+    <result column="alarm_time" jdbcType="TIMESTAMP" property="alarmTime" />
+    <result column="alarm_note" jdbcType="VARCHAR" property="alarmNote" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    alarm_id, alarm_category, alarm_device_id, alarm_longitude, alarm_latitude, position_time, 
+    alarm_time, alarm_note
+  </sql>
+  <select id="selectByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_alarm
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from device_alarm
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample">
+    delete from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    insert into device_alarm (alarm_id, alarm_category, alarm_device_id, 
+      alarm_longitude, alarm_latitude, position_time, 
+      alarm_time, alarm_note)
+    values (#{alarmId,jdbcType=INTEGER}, #{alarmCategory,jdbcType=TINYINT}, #{alarmDeviceId,jdbcType=INTEGER}, 
+      #{alarmLongitude,jdbcType=REAL}, #{alarmLatitude,jdbcType=REAL}, #{positionTime,jdbcType=TIMESTAMP}, 
+      #{alarmTime,jdbcType=TIMESTAMP}, #{alarmNote,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    insert into device_alarm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alarmId != null">
+        alarm_id,
+      </if>
+      <if test="alarmCategory != null">
+        alarm_category,
+      </if>
+      <if test="alarmDeviceId != null">
+        alarm_device_id,
+      </if>
+      <if test="alarmLongitude != null">
+        alarm_longitude,
+      </if>
+      <if test="alarmLatitude != null">
+        alarm_latitude,
+      </if>
+      <if test="positionTime != null">
+        position_time,
+      </if>
+      <if test="alarmTime != null">
+        alarm_time,
+      </if>
+      <if test="alarmNote != null">
+        alarm_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alarmId != null">
+        #{alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmCategory != null">
+        #{alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="alarmDeviceId != null">
+        #{alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLongitude != null">
+        #{alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="alarmLatitude != null">
+        #{alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="positionTime != null">
+        #{positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmTime != null">
+        #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmNote != null">
+        #{alarmNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="twm.mybatisdemo.pojo.DeviceAlarmExample" resultType="java.lang.Long">
+    select count(*) from device_alarm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update device_alarm
+    <set>
+      <if test="record.alarmId != null">
+        alarm_id = #{record.alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmCategory != null">
+        alarm_category = #{record.alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="record.alarmDeviceId != null">
+        alarm_device_id = #{record.alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmLongitude != null">
+        alarm_longitude = #{record.alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="record.alarmLatitude != null">
+        alarm_latitude = #{record.alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="record.positionTime != null">
+        position_time = #{record.positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alarmTime != null">
+        alarm_time = #{record.alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alarmNote != null">
+        alarm_note = #{record.alarmNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update device_alarm
+    set alarm_id = #{record.alarmId,jdbcType=INTEGER},
+      alarm_category = #{record.alarmCategory,jdbcType=TINYINT},
+      alarm_device_id = #{record.alarmDeviceId,jdbcType=INTEGER},
+      alarm_longitude = #{record.alarmLongitude,jdbcType=REAL},
+      alarm_latitude = #{record.alarmLatitude,jdbcType=REAL},
+      position_time = #{record.positionTime,jdbcType=TIMESTAMP},
+      alarm_time = #{record.alarmTime,jdbcType=TIMESTAMP},
+      alarm_note = #{record.alarmNote,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    update device_alarm
+    <set>
+      <if test="alarmCategory != null">
+        alarm_category = #{alarmCategory,jdbcType=TINYINT},
+      </if>
+      <if test="alarmDeviceId != null">
+        alarm_device_id = #{alarmDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLongitude != null">
+        alarm_longitude = #{alarmLongitude,jdbcType=REAL},
+      </if>
+      <if test="alarmLatitude != null">
+        alarm_latitude = #{alarmLatitude,jdbcType=REAL},
+      </if>
+      <if test="positionTime != null">
+        position_time = #{positionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmTime != null">
+        alarm_time = #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmNote != null">
+        alarm_note = #{alarmNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.DeviceAlarm">
+    update device_alarm
+    set alarm_category = #{alarmCategory,jdbcType=TINYINT},
+      alarm_device_id = #{alarmDeviceId,jdbcType=INTEGER},
+      alarm_longitude = #{alarmLongitude,jdbcType=REAL},
+      alarm_latitude = #{alarmLatitude,jdbcType=REAL},
+      position_time = #{positionTime,jdbcType=TIMESTAMP},
+      alarm_time = #{alarmTime,jdbcType=TIMESTAMP},
+      alarm_note = #{alarmNote,jdbcType=VARCHAR}
+    where alarm_id = #{alarmId,jdbcType=INTEGER}
+  </update>
+</mapper>

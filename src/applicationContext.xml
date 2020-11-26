@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx 
+    	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.anfu.gas.service.impl"></context:component-scan>
+	
+	
+   <!-- 连接池基本参数配置，类似数据库连接池 -->
+    <context:property-placeholder location="classpath:redis.properties"
+        ignore-unresolvable="true" />
+    
+    <!-- redis连接池 -->  
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.maxActive}" />
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+    </bean>
+
+    <!-- 连接池配置，类似数据库连接池 -->
+    <bean id="jedisConnectionFactory"
+        class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+<!--         <property name="hostName" value="${redis.host}"></property> -->
+<!--         <property name="port" value="${redis.port}"></property> -->
+        <!-- <property name="password" value="${redis.pass}"></property> -->
+        <property name="poolConfig" ref="poolConfig"></property>
+    </bean>
+
+    <!--redis操作模版,使用该对象可以操作redis  -->  
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" >    
+        <property name="connectionFactory" ref="jedisConnectionFactory" />    
+        <!--如果不配置Serializer，那么存储的时候缺省使用String，如果用User类型存储，那么会提示错误User can't cast to String！！  -->    
+        <property name="keySerializer" >    
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />    
+        </property>    
+        <property name="valueSerializer" >    
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer" />    
+        </property>    
+        <property name="hashKeySerializer">    
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>    
+        </property>    
+        <property name="hashValueSerializer">    
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>    
+        </property>    
+        <!--开启事务  -->  
+        <property name="enableTransactionSupport" value="true"></property>  
+    </bean >   
+	<bean id="redisUtil" class="RedisUtil">  
+        <property name="redisTemplate" ref="redisTemplate" />  
+    </bean>  
+
+    <!-- 下面这个是整合Mybatis的二级缓存使用的 -->
+<!--     <bean id="redisCacheTransfer" class="cn.qlq.jedis.RedisCacheTransfer"> -->
+<!--         <property name="jedisConnectionFactory" ref="jedisConnectionFactory" /> -->
+<!--     </bean> -->
+	
+	
+	
+	
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/gasmonitor?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai" />
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/localizer?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC" 
+			/> -->
+		<property name="username" value="root" />
+		<property name="password" value="jianxin1982" />
+		<property name="initialSize" value="3" />
+		<property name="minIdle" value="300" />
+		<property name="maxIdle" value="5000" />
+		<property name="maxTotal" value="15000" />
+	</bean>
+	<!-- <bean id="dataSource" class="com.zhongzhi.servlet.DataSourceFactory" 
+		factory-method="createInstance" ></bean> -->
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+	<!-- <property name="jndiName"> -->
+	<!-- <value>java:comp/env/test</value> -->
+	<!-- </property> -->
+	<!-- </bean> -->
+
+	<!-- 数据源封装类 .数据源:获取数据库连 接,spring-jdbc.jar 中 -->
+	<!-- <bean id="dataSouce" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+	<!-- <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> -->
+	<!-- <property name="url" value="jdbc:mysql://localhost:3306/zhongzhi?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC"></property> -->
+	<!-- <property name="username" value="root"></property> -->
+	<!-- <property name="password" value="jianxin"></property> -->
+	<!-- </bean> -->
+	<!-- 创建 SqlSessionFactory 对象 -->
+	<bean id="factory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据库连接信息来源于 dataSource -->
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 扫描器相当于 mybatis.xml 中 mappers 下 package 标 签,扫描 com.bjsxt.mapper 包后会给对应接口创建对象 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 要扫描哪个包 -->
+		<property name="basePackage"
+			value="com.zhongzhi.mapper,com.anfu.gas.mapper,com.anfu.gas.mapper.self,com.zhongzhi.location.mapper"></property>
+		<!-- 和 factory 产生关系 -->
+		<property name="sqlSessionFactory" ref="factory"></property>
+	</bean>
+	<!-- 由 spring 管理 service 实现类 -->
+	<bean id="studentService"
+		class="com.zhongzhi.service.StudentService">
+		<property name="studentMapper" ref="studentMapper"></property>
+	</bean>
+	<bean id="memberDao"
+		class="com.zhongzhi.location.mapper.wrapper.MemberDao">
+		<property name="memberMapper" ref="memberMapper"></property>
+	</bean>
+	<bean id="localizerDao"
+		class="com.zhongzhi.location.mapper.wrapper.LocalizerDao">
+		<property name="localizerMapper" ref="localizerMapper"></property>
+	</bean>
+	<bean id="memberService"
+		class="com.zhongzhi.location.service.MemberService">
+		<property name="memberDao" ref="memberDao"></property>
+	</bean>
+	<!-- <bean id="loginService" class="com.zhongzhi.location.service.LoginService"> -->
+	<!-- <property name="memberMapper" ref="memberMapper"></property> -->
+	<!-- </bean> -->
+	<bean id="localizerService"
+		class="com.zhongzhi.location.service.LocalizerService">
+		<!-- <property name="localizerDao" ref="localizerDao"></property> -->
+	</bean>
+	<bean id="SaleService"
+		class="com.zhongzhi.location.service.SaleService">
+	</bean>
+	<bean id="monitorService"
+		class="com.zhongzhi.location.service.MonitorService"></bean>
+
+
+	<!-- spring集成mina -->
+	<!-- 设置 I/O 接受器，并指定接收到请求后交给 myHandler 进行处理 -->
+	<bean id="customEditorConfigurer"
+		class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.net.SocketAddress"
+					value="org.apache.mina.integration.beans.InetSocketAddressEditor" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- handlers事件 -->
+	<bean id="IoHandler"
+		class="com.pcm.mina.service.handler.ServiceMainHandler">
+		<property name="handlers">
+			<map>
+				<entry key="client_bind">  <!-- 创建连接 -->
+					<bean class="com.pcm.mina.service.handler.BindHandler"></bean>
+				</entry>
+				<entry key="getStatusData">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetStatusDataHandler"></bean>
+				</entry>
+				<entry key="reset">  <!-- 创建连接 -->
+					<bean class="com.pcm.mina.service.handler.ResetHandler"></bean>
+				</entry>
+				<entry key="stopSound">  <!-- 创建连接 -->
+					<bean class="com.pcm.mina.service.handler.StopSoundHandler"></bean>
+				</entry>
+				<entry key="getAlarmBound">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetAlarmBoundHandler"></bean>
+				</entry>
+				<entry key="setAlarmBound">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetAlarmBoundHandler"></bean>
+				</entry>
+				<entry key="startPump">  <!-- 创建连接 -->
+					<bean class="com.pcm.mina.service.handler.StartPumpHandler"></bean>
+				</entry>
+				<entry key="client_closs">  <!--断开清除会话 -->
+					<bean
+						class="com.pcm.mina.service.handler.SessionClosedHandler"></bean>
+				</entry>
+				<entry key="client_push">  <!--在线推送消息 -->
+					<bean class="com.pcm.mina.service.handler.PushMessageHandler"></bean>
+				</entry>
+
+				<entry key="getHighAlarmBound">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetHighAlarmBoundHandler"></bean>
+				</entry>
+				<entry key="setHighAlarmBound">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetHighAlarmBoundHandler"></bean>
+				</entry>
+				<entry key="getLowAlarmBound">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetLowAlarmBoundHandler"></bean>
+				</entry>
+				<entry key="setLowAlarmBound">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetLowAlarmBoundHandler"></bean>
+				</entry>
+				<entry key="getMaskThreshold">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetMaskThresholdHandler"></bean>
+				</entry>
+				<entry key="setMaskThreshold">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetMaskThresholdHandler"></bean>
+				</entry>
+				<entry key="getPumpRunTime">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetPumpRunTimeHandler"></bean>
+				</entry>
+				<entry key="setPumpRunTime">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetPumpRunTimeHandler"></bean>
+				</entry>
+				<entry key="getPumpPeriod">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetPumpPeriodHandler"></bean>
+				</entry>
+				<entry key="setPumpPeriod">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetPumpPeriodHandler"></bean>
+				</entry>
+				<entry key="getFlowDifferenceValue">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetFlowDifferenceValueHandler"></bean>
+				</entry>
+				<entry key="setFlowDifferenceValue">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetFlowDifferenceValueHandler"></bean>
+				</entry>
+				<entry key="getWaterInletFaultThreshold">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetWaterInletFaultThresholdHandler"></bean>
+				</entry>
+				<entry key="setWaterInletFaultThreshold">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetWaterInletFaultThresholdHandler"></bean>
+				</entry>
+				<entry key="getFlowFaultThreshold">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetFlowFaultThresholdHandler"></bean>
+				</entry>
+				<entry key="setFlowFaultThreshold">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetFlowFaultThresholdHandler"></bean>
+				</entry>
+				<entry key="getSensorFaultThreshold">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetSensorFaultThresholdHandler"></bean>
+				</entry>
+				<entry key="setSensorFaultThreshold">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.SetSensorFaultThresholdHandler"></bean>
+				</entry>
+				<entry key="getStaticFlowValue">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetStaticFlowValueHandler"></bean>
+				</entry>
+				<entry key="getDynamicFlowValue">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.GetDynamicFlowValueHandler"></bean>
+				</entry>
+				<entry key="calibrateZeroSpot">  <!-- 创建连接 -->
+					<bean
+						class="com.pcm.mina.service.handler.CalibrateZeroSpotHandler"></bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- IoAccepter，绑定到1255端口 -->
+	<!-- 通过 init-method指明了当 I/O 接受器创建成功之后，调用其 bind方法来接受连接；通过 destroy-method声明了当其被销毁的时候，调用其 
+		unbind来停止监听 -->
+	<bean id="SerNioSociketAcceptor"
+		class="com.pcm.mina.service.SerNioSociketAcceptor" init-method="bind"
+		destroy-method="unbind">
+		<property name="port" value="1255" />
+		<property name="ioHandler" ref="IoHandler" />
+	</bean>
+
+	<!--spring动态获取bean实现 -->
+	<bean id="ContextHolder" class="com.pcm.util.ContextHolder"></bean>
+	<bean id="PcmSessionManager"
+		class="com.pcm.mina.service.session.DefaultSessionManager" />
+	<bean id="myadvice" class="com.anfu.gas.service.aop.ServiceAdvice" />
+	<aop:config>
+		<aop:aspect ref="myadvice">
+			<aop:pointcut
+				expression="execution(* com.anfu.gas.service.impl.*.*(..))"
+				id="mypoint" />
+			<!-- <aop:pointcut expression="execution(*com.bjsxt.test.Demo.demo1(String,int)) 
+				and args(name1,age1)" id="mypoint"/> -->
+			<aop:pointcut
+				expression="execution(* com.anfu.gas.service.impl.DeviceMonitorServiceImpl.selectGasAlarmByExampleAndPage(com.anfu.gas.pojo.self.parameter.GasAlarmParameter)) and args(gasAlarmParameter)"
+				id="mypoint2" />
+			<aop:before method="mybefore" pointcut-ref="mypoint2"
+				arg-names="gasAlarmParameter" />
+			<aop:before method="mybefore1" pointcut-ref="mypoint" />
+		</aop:aspect>
+	</aop:config>
+</beans> 

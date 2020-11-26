@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anfu.gas.mapper.GasFaultMapper">
+  <resultMap id="BaseResultMap" type="com.anfu.gas.pojo.GasFault">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="host_id" jdbcType="VARCHAR" property="hostId" />
+    <result column="detector_id" jdbcType="VARCHAR" property="detectorId" />
+    <result column="host_address" jdbcType="VARCHAR" property="hostAddress" />
+    <result column="detector_address" jdbcType="VARCHAR" property="detectorAddress" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="detail_info" jdbcType="VARCHAR" property="detailInfo" />
+    <result column="province_id" jdbcType="INTEGER" property="provinceId" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="area_id" jdbcType="INTEGER" property="areaId" />
+    <result column="street_id" jdbcType="INTEGER" property="streetId" />
+    <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="street_name" jdbcType="VARCHAR" property="streetName" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
+    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="stop_time" jdbcType="TIMESTAMP" property="stopTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, host_id, detector_id, host_address, detector_address, type, detail_info, province_id, 
+    city_id, area_id, street_id, enterprise_name, street_name, area_name, city_name, 
+    province_name, enterprise_id, location, longitude, latitude, start_time, stop_time
+  </sql>
+  <select id="selectByExample" parameterType="com.anfu.gas.pojo.GasFaultExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gas_fault
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gas_fault
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gas_fault
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.anfu.gas.pojo.GasFaultExample">
+    delete from gas_fault
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.anfu.gas.pojo.GasFault" useGeneratedKeys="true" keyProperty="id">
+    insert into gas_fault (id, host_id, detector_id, 
+      host_address, detector_address, type, 
+      detail_info, province_id, city_id, 
+      area_id, street_id, enterprise_name, 
+      street_name, area_name, city_name, 
+      province_name, enterprise_id, location, 
+      longitude, latitude, start_time, 
+      stop_time)
+    values (#{id,jdbcType=INTEGER}, #{hostId,jdbcType=VARCHAR}, #{detectorId,jdbcType=VARCHAR}, 
+      #{hostAddress,jdbcType=VARCHAR}, #{detectorAddress,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
+      #{detailInfo,jdbcType=VARCHAR}, #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
+      #{areaId,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, #{enterpriseName,jdbcType=VARCHAR}, 
+      #{streetName,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{provinceName,jdbcType=VARCHAR}, #{enterpriseId,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{stopTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.anfu.gas.pojo.GasFault">
+    insert into gas_fault
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="hostId != null">
+        host_id,
+      </if>
+      <if test="detectorId != null">
+        detector_id,
+      </if>
+      <if test="hostAddress != null">
+        host_address,
+      </if>
+      <if test="detectorAddress != null">
+        detector_address,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="detailInfo != null">
+        detail_info,
+      </if>
+      <if test="provinceId != null">
+        province_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="streetId != null">
+        street_id,
+      </if>
+      <if test="enterpriseName != null">
+        enterprise_name,
+      </if>
+      <if test="streetName != null">
+        street_name,
+      </if>
+      <if test="areaName != null">
+        area_name,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="provinceName != null">
+        province_name,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="stopTime != null">
+        stop_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="hostId != null">
+        #{hostId,jdbcType=VARCHAR},
+      </if>
+      <if test="detectorId != null">
+        #{detectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="hostAddress != null">
+        #{hostAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="detectorAddress != null">
+        #{detectorAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="detailInfo != null">
+        #{detailInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="streetId != null">
+        #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseName != null">
+        #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="streetName != null">
+        #{streetName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stopTime != null">
+        #{stopTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.anfu.gas.pojo.GasFaultExample" resultType="java.lang.Long">
+    select count(*) from gas_fault
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gas_fault
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.hostId != null">
+        host_id = #{record.hostId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detectorId != null">
+        detector_id = #{record.detectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostAddress != null">
+        host_address = #{record.hostAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detectorAddress != null">
+        detector_address = #{record.detectorAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.detailInfo != null">
+        detail_info = #{record.detailInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceId != null">
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null">
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.areaId != null">
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.streetId != null">
+        street_id = #{record.streetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.enterpriseName != null">
+        enterprise_name = #{record.enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.streetName != null">
+        street_name = #{record.streetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaName != null">
+        area_name = #{record.areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityName != null">
+        city_name = #{record.cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceName != null">
+        province_name = #{record.provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseId != null">
+        enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.location != null">
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stopTime != null">
+        stop_time = #{record.stopTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gas_fault
+    set id = #{record.id,jdbcType=INTEGER},
+      host_id = #{record.hostId,jdbcType=VARCHAR},
+      detector_id = #{record.detectorId,jdbcType=VARCHAR},
+      host_address = #{record.hostAddress,jdbcType=VARCHAR},
+      detector_address = #{record.detectorAddress,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=TINYINT},
+      detail_info = #{record.detailInfo,jdbcType=VARCHAR},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      area_id = #{record.areaId,jdbcType=INTEGER},
+      street_id = #{record.streetId,jdbcType=INTEGER},
+      enterprise_name = #{record.enterpriseName,jdbcType=VARCHAR},
+      street_name = #{record.streetName,jdbcType=VARCHAR},
+      area_name = #{record.areaName,jdbcType=VARCHAR},
+      city_name = #{record.cityName,jdbcType=VARCHAR},
+      province_name = #{record.provinceName,jdbcType=VARCHAR},
+      enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      location = #{record.location,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      stop_time = #{record.stopTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anfu.gas.pojo.GasFault">
+    update gas_fault
+    <set>
+      <if test="hostId != null">
+        host_id = #{hostId,jdbcType=VARCHAR},
+      </if>
+      <if test="detectorId != null">
+        detector_id = #{detectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="hostAddress != null">
+        host_address = #{hostAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="detectorAddress != null">
+        detector_address = #{detectorAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="detailInfo != null">
+        detail_info = #{detailInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="streetId != null">
+        street_id = #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseName != null">
+        enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="streetName != null">
+        street_name = #{streetName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stopTime != null">
+        stop_time = #{stopTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anfu.gas.pojo.GasFault">
+    update gas_fault
+    set host_id = #{hostId,jdbcType=VARCHAR},
+      detector_id = #{detectorId,jdbcType=VARCHAR},
+      host_address = #{hostAddress,jdbcType=VARCHAR},
+      detector_address = #{detectorAddress,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      detail_info = #{detailInfo,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      area_id = #{areaId,jdbcType=INTEGER},
+      street_id = #{streetId,jdbcType=INTEGER},
+      enterprise_name = #{enterpriseName,jdbcType=VARCHAR},
+      street_name = #{streetName,jdbcType=VARCHAR},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      location = #{location,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      stop_time = #{stopTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

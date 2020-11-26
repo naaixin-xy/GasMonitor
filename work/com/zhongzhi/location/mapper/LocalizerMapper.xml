@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.zhongzhi.location.mapper.LocalizerMapper"> 
+ 
+ 	<resultMap id="memberResultMap" type="com.zhongzhi.location.pojo.Member">
+  			<id property="id" column="user_id" />
+  			<result property="account" column="account"/>
+   			<result property="password" column="password"/> 			
+  			<result property="category" column="category"/> 
+  			<result property="name" column="user_name"/> 
+  			<result property="parentId" column="parent_id"/> 
+  			<result property="phone" column="phone"/>
+  			<result property="deviceCount" column="device_count"/>  			 
+  			<result property="contact" column="contact"/> 
+  			<result property="stock" column="stock"/> 
+  			<result property="purchaseQuantity" column="purchase_quantity"/>
+			<result property="address" column="address"/>    			
+  			<result property="createTime" column="create_time"/>  
+  			<result property="modifyTime" column="modify_time"/> 
+  			<result property="remark" column="remark"/>     			  			  					
+	</resultMap>
+	<select id="getMemberById"  parameterType="int"  resultMap="memberResultMap">
+			select
+				user_id,
+				account,
+				password,
+				category,
+				user_name,
+				parent_id,
+				phone,
+				device_count,
+				contact,
+				create_time,
+				modify_time,
+				remark
+			from
+				all_user
+			where 
+				user_id=#{id}
+	</select> 
+ 
+ 
+ 	<select id="localizerQuery" parameterType="com.zhongzhi.location.pojo.Localizer" resultMap="localizerResultMap">
+	 		select 	
+	 			device_id,
+	 			device_name,
+	 			device_phone,
+	 			plate_number,
+	 			speed_limit,
+	 			contact_phone,
+	 			oil_coefficient,
+	 			maintain_distance_period,
+	 			last_maintain_kilometre,
+	 			filter_lbs,
+	 			device_contact,
+	 			device_user_id,
+	 			device_password,
+	 			device_status,
+	 			connect_status,
+	 			device_icon,
+	 			device_imei,
+	 			device_category,
+	 			create_time,
+	 			active_time,
+	 			due_time,
+	 			last_update_time,
+	 			device_note			
+			from all_device
+		<where>
+				<if test="id!=null">
+					and device_id=#{id}
+				</if>
+				<if test="name!=null and name!=''">
+					and device_name=#{name}
+				</if>
+				<if test="phone!=null and phone!=''">
+					and device_phone=#{phone}
+				</if>
+				<if test="plateNumber!=null and plateNumber!=''">
+					and plate_number=#{plateNumber}
+				</if>
+				<if test="speedLimit!=null">
+					and speed_limit=#{speedLimit}
+				</if>
+				<if test="contactPhone!=null and contactPhone!=''" >
+					and contact_phone=#{contactPhone}
+				</if>
+				<if test="oilCoefficient!=null">
+					and oil_coefficient=#{oilCoefficient}
+				</if>
+				<if test="maintainDistancePeriod!=null">
+					and maintain_distance_period=#{maintainDistancePeriod}
+				</if>
+				<if test="lastMaintainKilometre!=null">
+					and last_maintain_kilometre=#{lastMaintainKilometre}
+				</if>
+				<if test="filterLbs!=null">
+					and filter_lbs=#{filterLbs}
+				</if>
+				<if test="deviceContact!=null and deviceContact!=''">
+					and device_contact=#{deviceContact}
+				</if>			
+				<if test="deviceUserId!=null">
+					and device_user_id=#{deviceUserId}
+				</if>
+				
+				<if test="devicePassword!=null and devicePassword!=''">
+					and device_password=#{devicePassword}
+				</if>				
+				<if test="deviceStatus!=null">
+					and device_status=#{deviceStatus}
+				</if>
+				<if test="connectStatus!=null">
+					and connect_status=#{connectStatus}
+				</if>
+				<if test="deviceIcon!=null">
+					and device_icon=#{deviceIcon}
+				</if>								
+				<if test="deviceImei!=null and deviceImei!=''">
+					and device_imei=#{deviceImei}
+				</if>
+				<if test="deviceCategory!=null">
+					and device_category=#{deviceCategory}
+				</if>
+				<if test="createTime!=null">
+					and create_time=#{createTime}
+				</if>			
+				<if test="activeTime!=null">
+					and active_time=#{activeTime}
+				</if>
+				<if test="dueTime!=null">
+					and due_time=#{dueTime}
+				</if>
+				<if test="lastUpdateTime!=null">
+					and last_update_time=#{lastUpdateTime}
+				</if>									
+				<if test="deviceNote!=null and deviceNote!=''">
+					and device_note=#{deviceNote}
+				</if>							
+			</where>		
+ 	</select>
+	<resultMap id="localizerResultMap" type="com.zhongzhi.location.pojo.Localizer">
+  			<id property="id" column="device_id" />
+  			<result property="name" column="device_name"/>
+  			<result property="phone" column="device_phone"/>
+   			<result property="plateNumber" column="plate_number"/> 			
+  			<result property="speedLimit" column="speed_limit"/> 
+  			<result property="contactPhone" column="contact_phone"/> 
+  			<result property="maintainDistancePeriod" column="maintain_distance_period"/> 
+  			<result property="lastMaintainKilometre" column="last_maintain_kilometre"/>
+  			<result property="filterLbs" column="filter_lbs"/>
+  			<result property="deviceContact" column="device_contact"/>
+  			<result property="oilCoefficient" column="oil_coefficient"/>
+  			<result property="deviceUserId" column="device_user_id"/> 
+  			<result property="devicePassword" column="device_password"/>  
+  			<result property="deviceStatus" column="device_status"/> 
+  			<result property="connectStatus" column="connect_status"/>
+  			<result property="deviceIcon" column="device_icon"/>
+  			<result property="deviceImei" column="device_imei"/>
+  			<result property="deviceCategory" column="device_category"/>       			
+   			<result property="createTime" column="create_time"/>      			
+  			<result property="activeTime" column="active_time"/>     
+   			<result property="dueTime" column="due_time"/>
+  			<result property="lastUpdateTime" column="last_update_time"/>       			
+   			<result property="deviceNote" column="device_note"/>
+   			<association property="member" column="device_user_id" select="getMemberById" fetchType="lazy" javaType="com.zhongzhi.location.pojo.Member"></association>      			  			          			  			  					
+	</resultMap>
+	
+	
+	<select id="getLocalizerCount" parameterType="com.zhongzhi.location.pojo.LocalizerQueryParam" resultType="int">
+			select
+				count(*)		
+			from 
+				all_device
+		<where>
+				<if test="id!=null">
+					and device_id=#{id}
+				</if>
+				<if test="name!=null and name!=''">
+					and device_name=#{name}
+				</if>
+				<if test="phone!=null and phone!=''">
+					and device_phone=#{phone}
+				</if>
+				<if test="plateNumber!=null and plateNumber!=''">
+					and plate_number=#{plateNumber}
+				</if>
+				<if test="speedLimit!=null">
+					and speed_limit=#{speedLimit}
+				</if>
+				<if test="contactPhone!=null and contactPhone!=''" >
+					and contact_phone=#{contactPhone}
+				</if>
+				<if test="oilCoefficient!=null">
+					and oil_coefficient=#{oilCoefficient}
+				</if>
+				<if test="maintainDistancePeriod!=null">
+					and maintain_distance_period=#{maintainDistancePeriod}
+				</if>
+				<if test="lastMaintainKilometre!=null">
+					and last_maintain_kilometre=#{lastMaintainKilometre}
+				</if>
+				<if test="filterLbs!=null">
+					and filter_lbs=#{filterLbs}
+				</if>
+				<if test="deviceContact!=null and deviceContact!=''">
+					and device_contact=#{deviceContact}
+				</if>			
+				<if test="deviceUserId!=null">
+					and device_user_id=#{deviceUserId}
+				</if>
+				
+				<if test="devicePassword!=null and devicePassword!=''">
+					and device_password=#{devicePassword}
+				</if>				
+				<if test="deviceStatus!=null">
+					and device_status=#{deviceStatus}
+				</if>
+				<if test="connectStatus!=null">
+					and connect_status=#{connectStatus}
+				</if>
+				<if test="deviceIcon!=null">
+					and device_icon=#{deviceIcon}
+				</if>								
+				<if test="deviceImei!=null and deviceImei!=''">
+					and device_imei=#{deviceImei}
+				</if>
+				<if test="deviceCategory!=null">
+					and device_category=#{deviceCategory}
+				</if>
+				<if test="createTime!=null">
+					and create_time=#{createTime}
+				</if>			
+				<if test="activeTime!=null">
+					and active_time=#{activeTime}
+				</if>
+				<if test="dueTime!=null">
+					and due_time=#{dueTime}
+				</if>
+				<if test="lastUpdateTime!=null">
+					and last_update_time=#{lastUpdateTime}
+				</if>									
+				<if test="deviceNote!=null and deviceNote!=''">
+					and device_note=#{deviceNote}
+				</if>							
+			</where>		
+	</select>
+ 	<select id="localizerQueryByPage" parameterType="com.zhongzhi.location.pojo.LocalizerQueryParam" resultMap="localizerResultMap">
+	 		select 	
+	 			device_id,
+	 			device_name,
+	 			device_phone,
+	 			plate_number,
+	 			speed_limit,
+	 			contact_phone,
+	 			oil_coefficient,
+	 			maintain_distance_period,
+	 			last_maintain_kilometre,
+	 			filter_lbs,
+	 			device_contact,
+	 			device_user_id,
+	 			device_password,
+	 			device_status,
+	 			connect_status,
+	 			device_icon,
+	 			device_imei,
+	 			device_category,
+	 			create_time,
+	 			active_time,
+	 			due_time,
+	 			last_update_time,
+	 			device_note			
+			from all_device
+		<where>
+				<if test="id!=null">
+					and device_id=#{id}
+				</if>
+				<if test="name!=null and name!=''">
+					and device_name=#{name}
+				</if>
+				<if test="phone!=null and phone!=''">
+					and device_phone=#{phone}
+				</if>
+				<if test="plateNumber!=null and plateNumber!=''">
+					and plate_number=#{plateNumber}
+				</if>
+				<if test="speedLimit!=null">
+					and speed_limit=#{speedLimit}
+				</if>
+				<if test="contactPhone!=null and contactPhone!=''" >
+					and contact_phone=#{contactPhone}
+				</if>
+				<if test="oilCoefficient!=null">
+					and oil_coefficient=#{oilCoefficient}
+				</if>
+				<if test="maintainDistancePeriod!=null">
+					and maintain_distance_period=#{maintainDistancePeriod}
+				</if>
+				<if test="lastMaintainKilometre!=null">
+					and last_maintain_kilometre=#{lastMaintainKilometre}
+				</if>
+				<if test="filterLbs!=null">
+					and filter_lbs=#{filterLbs}
+				</if>
+				<if test="deviceContact!=null and deviceContact!=''">
+					and device_contact=#{deviceContact}
+				</if>			
+				<if test="deviceUserId!=null">
+					and device_user_id=#{deviceUserId}
+				</if>
+				
+				<if test="devicePassword!=null and devicePassword!=''">
+					and device_password=#{devicePassword}
+				</if>				
+				<if test="deviceStatus!=null">
+					and device_status=#{deviceStatus}
+				</if>
+				<if test="connectStatus!=null">
+					and connect_status=#{connectStatus}
+				</if>
+				<if test="deviceIcon!=null">
+					and device_icon=#{deviceIcon}
+				</if>								
+				<if test="deviceImei!=null and deviceImei!=''">
+					and device_imei=#{deviceImei}
+				</if>
+				<if test="deviceCategory!=null">
+					and device_category=#{deviceCategory}
+				</if>
+				<if test="createTime!=null">
+					and create_time=#{createTime}
+				</if>			
+				<if test="activeTime!=null">
+					and active_time=#{activeTime}
+				</if>
+				<if test="dueTime!=null">
+					and due_time=#{dueTime}
+				</if>
+				<if test="lastUpdateTime!=null">
+					and last_update_time=#{lastUpdateTime}
+				</if>									
+				<if test="deviceNote!=null and deviceNote!=''">
+					and device_note=#{deviceNote}
+				</if>							
+			</where>		
+			limit
+				#{pageStart},#{pageSize}
+	</select>
+	
+<!-- 	Integer id; -->
+<!-- 	String name; -->
+<!-- 	String phone; -->
+<!-- 	String plateNumber; -->
+<!-- 	Integer speedLimit; -->
+<!-- 	String contactPhone; -->
+<!-- 	Float oilCoefficient; -->
+<!-- 	Integer maintainDistancePeriod; -->
+<!-- 	Integer lastMaintainKilometre; -->
+<!-- 	Integer filterLbs; -->
+<!-- 	String deviceContact; -->
+<!-- 	Integer deviceUserId; -->
+<!-- 	String devicePassword; -->
+<!-- 	Integer deviceStatus; -->
+<!-- 	Integer connectStatus; -->
+<!-- 	Integer deviceIcon; -->
+<!-- 	String deviceImei; -->
+<!-- 	String deviceCategory; -->
+<!-- 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") -->
+<!-- 	Date createTime; -->
+<!-- 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") -->
+<!-- 	Date activeTime; -->
+<!-- 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") -->
+<!-- 	Date dueTime; -->
+<!-- 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") -->
+<!-- 	Date lastUpdateTime; -->
+<!-- 	String deviceNote; -->
+	<insert id="localizerAdd" parameterType="com.zhongzhi.location.pojo.Localizer">
+		insert into all_device values(default,#{name},#{phone},#{plateNumber},#{speedLimit},#{contactPhone},#{oilCoefficient},
+			#{maintainDistancePeriod},#{lastMaintainKilometre},#{filterLbs},#{deviceContact},#{deviceUserId},
+			#{devicePassword},#{deviceStatus},#{connectStatus},#{deviceIcon},#{deviceImei},
+			#{deviceCategory},#{createTime},#{activeTime},#{dueTime},#{deviceNote},#{lastUpdateTime}
+		)
+	</insert>
+	<delete id="localizerDelete" parameterType="int">
+		delete from all_device where device_id=#{id}
+	</delete>
+	<delete id="localizerDeleteBatch" parameterType="List">
+		delete from all_device where device_id in
+		<foreach collection="list" item="itm" open="(" close=")" separator=",">#{itm}</foreach>
+	</delete>
+	<update id="localizerUpdate" parameterType="com.zhongzhi.location.pojo.Localizer">
+		update all_device 
+		<set>
+			device_id=#{id},
+				<if test="id!=null">
+					device_id=#{id},
+				</if>
+				<if test="name!=null and name!=''">
+					device_name=#{name},
+				</if>
+				<if test="phone!=null and phone!=''">
+					device_phone=#{phone},
+				</if>
+				<if test="plateNumber!=null and plateNumber!=''">
+					plate_number=#{plateNumber},
+				</if>
+				<if test="speedLimit!=null">
+					speed_limit=#{speedLimit},
+				</if>
+				<if test="contactPhone!=null and contactPhone!=''" >
+					contact_phone=#{contactPhone},
+				</if>
+				<if test="oilCoefficient!=null">
+					oil_coefficient=#{oilCoefficient},
+				</if>
+				<if test="maintainDistancePeriod!=null">
+					maintain_distance_period=#{maintainDistancePeriod},
+				</if>
+				<if test="lastMaintainKilometre!=null">
+					last_maintain_kilometre=#{lastMaintainKilometre},
+				</if>
+				<if test="filterLbs!=null">
+					filter_lbs=#{filterLbs},
+				</if>
+				<if test="deviceContact!=null and deviceContact!=''">
+					device_contact=#{deviceContact},
+				</if>			
+				<if test="deviceUserId!=null">
+					device_user_id=#{deviceUserId},
+				</if>
+				
+				<if test="devicePassword!=null and devicePassword!=''">
+					device_password=#{devicePassword},
+				</if>				
+				<if test="deviceStatus!=null">
+					device_status=#{deviceStatus},
+				</if>
+				<if test="connectStatus!=null">
+					connect_status=#{connectStatus},
+				</if>
+				<if test="deviceIcon!=null">
+					device_icon=#{deviceIcon},
+				</if>								
+				<if test="deviceImei!=null and deviceImei!=''">
+					device_imei=#{deviceImei},
+				</if>
+				<if test="deviceCategory!=null">
+					device_category=#{deviceCategory},
+				</if>
+				<if test="createTime!=null">
+					create_time=#{createTime},
+				</if>			
+				<if test="activeTime!=null">
+					active_time=#{activeTime},
+				</if>
+				<if test="dueTime!=null">
+					due_time=#{dueTime},
+				</if>
+				<if test="lastUpdateTime!=null">
+					last_update_time=#{lastUpdateTime},
+				</if>									
+				<if test="deviceNote!=null and deviceNote!=''">
+					device_note=#{deviceNote}
+				</if>							
+		</set>
+		where
+			device_id=#{id}		
+	</update>	
+</mapper>

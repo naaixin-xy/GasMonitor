@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:component-scan base-package="com.zhongzhi.location.controller"></context:component-scan>
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<!-- 静态资源 -->
+	<mvc:resources location="/WEB-INF/ui/js/" mapping="/ui/js/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/ui/css/" mapping="/ui/css/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/ui/images/" mapping="/ui/images/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/ui/oimgs/" mapping="/ui/oimgs/**"></mvc:resources>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/ui/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    </bean>
+<!-- MultipartResovler 解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="500"></property>
+	</bean>
+	<!-- 异常解析器 -->
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error</prop>
+				<prop key="Exception">error</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 	<mvc:interceptors> -->
+	<!-- 		<bean class="com.zhongzhi.controller.interceptor.DemoInterceptor"></bean> -->
+	<!-- 	</mvc:interceptors> -->
+
+	<!-- <mvc:interceptors> -->
+	<!-- 	<mvc:interceptor> -->
+	<!-- 		<mvc:mapping path="/demo1" /> -->
+	<!-- 		<mvc:mapping path="/demo16" /> -->
+	<!-- 		<mvc:mapping path="/demo17" /> -->
+	<!-- 		<bean class="com.zhongzhi.controller.interceptor.DemoInterceptor"></bean> -->
+	<!-- 	</mvc:interceptor> -->
+	<!-- </mvc:interceptors> -->
+
+</beans>

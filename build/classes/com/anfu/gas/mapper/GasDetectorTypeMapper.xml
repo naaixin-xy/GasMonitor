@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anfu.gas.mapper.GasDetectorTypeMapper">
+  <resultMap id="BaseResultMap" type="com.anfu.gas.pojo.GasDetectorType">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="communication_mode" jdbcType="INTEGER" property="communicationMode" />
+    <result column="gas_type" jdbcType="INTEGER" property="gasType" />
+    <result column="measure_unit" jdbcType="VARCHAR" property="measureUnit" />
+    <result column="measure_range" jdbcType="INTEGER" property="measureRange" />
+    <result column="resolution_ratio" jdbcType="INTEGER" property="resolutionRatio" />
+    <result column="low_alarm" jdbcType="INTEGER" property="lowAlarm" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="high_alarm" jdbcType="INTEGER" property="highAlarm" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, communication_mode, gas_type, measure_unit, measure_range, resolution_ratio, 
+    low_alarm, note, create_time, last_update_time, high_alarm
+  </sql>
+  <select id="selectByExample" parameterType="com.anfu.gas.pojo.GasDetectorTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gas_detector_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gas_detector_type
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gas_detector_type
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.anfu.gas.pojo.GasDetectorTypeExample">
+    delete from gas_detector_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.anfu.gas.pojo.GasDetectorType">
+    insert into gas_detector_type (id, name, communication_mode, 
+      gas_type, measure_unit, measure_range, 
+      resolution_ratio, low_alarm, note, 
+      create_time, last_update_time, high_alarm
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{communicationMode,jdbcType=INTEGER}, 
+      #{gasType,jdbcType=INTEGER}, #{measureUnit,jdbcType=VARCHAR}, #{measureRange,jdbcType=INTEGER}, 
+      #{resolutionRatio,jdbcType=INTEGER}, #{lowAlarm,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{highAlarm,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.anfu.gas.pojo.GasDetectorType">
+    insert into gas_detector_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="communicationMode != null">
+        communication_mode,
+      </if>
+      <if test="gasType != null">
+        gas_type,
+      </if>
+      <if test="measureUnit != null">
+        measure_unit,
+      </if>
+      <if test="measureRange != null">
+        measure_range,
+      </if>
+      <if test="resolutionRatio != null">
+        resolution_ratio,
+      </if>
+      <if test="lowAlarm != null">
+        low_alarm,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="highAlarm != null">
+        high_alarm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="communicationMode != null">
+        #{communicationMode,jdbcType=INTEGER},
+      </if>
+      <if test="gasType != null">
+        #{gasType,jdbcType=INTEGER},
+      </if>
+      <if test="measureUnit != null">
+        #{measureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="measureRange != null">
+        #{measureRange,jdbcType=INTEGER},
+      </if>
+      <if test="resolutionRatio != null">
+        #{resolutionRatio,jdbcType=INTEGER},
+      </if>
+      <if test="lowAlarm != null">
+        #{lowAlarm,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="highAlarm != null">
+        #{highAlarm,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.anfu.gas.pojo.GasDetectorTypeExample" resultType="java.lang.Long">
+    select count(*) from gas_detector_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gas_detector_type
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.communicationMode != null">
+        communication_mode = #{record.communicationMode,jdbcType=INTEGER},
+      </if>
+      <if test="record.gasType != null">
+        gas_type = #{record.gasType,jdbcType=INTEGER},
+      </if>
+      <if test="record.measureUnit != null">
+        measure_unit = #{record.measureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.measureRange != null">
+        measure_range = #{record.measureRange,jdbcType=INTEGER},
+      </if>
+      <if test="record.resolutionRatio != null">
+        resolution_ratio = #{record.resolutionRatio,jdbcType=INTEGER},
+      </if>
+      <if test="record.lowAlarm != null">
+        low_alarm = #{record.lowAlarm,jdbcType=INTEGER},
+      </if>
+      <if test="record.note != null">
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.highAlarm != null">
+        high_alarm = #{record.highAlarm,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gas_detector_type
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      communication_mode = #{record.communicationMode,jdbcType=INTEGER},
+      gas_type = #{record.gasType,jdbcType=INTEGER},
+      measure_unit = #{record.measureUnit,jdbcType=VARCHAR},
+      measure_range = #{record.measureRange,jdbcType=INTEGER},
+      resolution_ratio = #{record.resolutionRatio,jdbcType=INTEGER},
+      low_alarm = #{record.lowAlarm,jdbcType=INTEGER},
+      note = #{record.note,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      high_alarm = #{record.highAlarm,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anfu.gas.pojo.GasDetectorType">
+    update gas_detector_type
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="communicationMode != null">
+        communication_mode = #{communicationMode,jdbcType=INTEGER},
+      </if>
+      <if test="gasType != null">
+        gas_type = #{gasType,jdbcType=INTEGER},
+      </if>
+      <if test="measureUnit != null">
+        measure_unit = #{measureUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="measureRange != null">
+        measure_range = #{measureRange,jdbcType=INTEGER},
+      </if>
+      <if test="resolutionRatio != null">
+        resolution_ratio = #{resolutionRatio,jdbcType=INTEGER},
+      </if>
+      <if test="lowAlarm != null">
+        low_alarm = #{lowAlarm,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="highAlarm != null">
+        high_alarm = #{highAlarm,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anfu.gas.pojo.GasDetectorType">
+    update gas_detector_type
+    set name = #{name,jdbcType=VARCHAR},
+      communication_mode = #{communicationMode,jdbcType=INTEGER},
+      gas_type = #{gasType,jdbcType=INTEGER},
+      measure_unit = #{measureUnit,jdbcType=VARCHAR},
+      measure_range = #{measureRange,jdbcType=INTEGER},
+      resolution_ratio = #{resolutionRatio,jdbcType=INTEGER},
+      low_alarm = #{lowAlarm,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      high_alarm = #{highAlarm,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

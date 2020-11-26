@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhongzhi.mapper.StudentMapper">
+	<select id="selectAll" resultMap="studentResultMap">
+<!-- 			select -->
+<!-- 				dt_id as detectorId, -->
+<!-- 				dt_host as hostId, -->
+<!-- 				dt_alarmstatus as alarmStatus, -->
+<!-- 				dt_faultstatus as faultStatus, -->
+<!-- 				dt_latitude as latitude, -->
+<!-- 				dt_longitude as longitude -->
+<!-- 			from  -->
+<!-- 				gasdetector -->
+<!-- 			where -->
+<!-- 				dt_host="1001" -->
+			select
+				id,
+				name,
+				age,
+				sex
+			from
+				student
+	</select>
+	<resultMap id="studentResultMap" type="com.zhongzhi.service.Student">
+  			<id property="id" column="id" />
+  			<result property="name" column="name"/>
+   			<result property="age" column="age"/> 			
+  			<result property="sex" column="sex"/>  					
+	</resultMap>
+</mapper>

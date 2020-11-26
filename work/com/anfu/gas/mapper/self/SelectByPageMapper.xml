@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.anfu.gas.mapper.self.SelectByPageMapper"> 
+ 
+ 	<select id="selectAdminByExampleAndPage" parameterType="com.anfu.gas.pojo.self.AdminExamplePageInfo" resultMap="com.anfu.gas.mapper.AdminMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.AdminMapper.Base_Column_List" />
+	    from gas_admin
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.AdminMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select>
+ 
+	  <select id="selectGasDetectorByExampleAndPage" parameterType="com.anfu.gas.pojo.self.GasDetectorExamplePageInfo" resultMap="com.anfu.gas.mapper.GasDetectorMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.GasDetectorMapper.Base_Column_List" />
+	    from gas_detector
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.GasDetectorMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+	    <if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>
+	  </select>
+	  
+	  <select id="selectGasHostByExampleAndPage" parameterType="com.anfu.gas.pojo.self.GasHostExamplePageInfo" resultMap="com.anfu.gas.mapper.GasHostMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.GasHostMapper.Base_Column_List" />
+	    from gas_host
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.GasHostMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>
+	  </select>  
+
+	  <select id="selectProvinceByExampleAndPage" parameterType="com.anfu.gas.pojo.self.ProvinceExamplePageInfo" resultMap="com.anfu.gas.mapper.ProvinceMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.ProvinceMapper.Base_Column_List" />
+	    from province
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.ProvinceMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select>  
+	  
+	  <select id="selectCityByExampleAndPage" parameterType="com.anfu.gas.pojo.self.CityExamplePageInfo" resultMap="com.anfu.gas.mapper.CityMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.CityMapper.Base_Column_List" />
+	    from city
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.CityMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>
+	  </select>	 
+	  
+	  <select id="selectAreaByExampleAndPage" parameterType="com.anfu.gas.pojo.self.AreaExamplePageInfo" resultMap="com.anfu.gas.mapper.AreaMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.AreaMapper.Base_Column_List" />
+	    from gas_area
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.AreaMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select> 
+	  
+	  <select id="selectStreetByExampleAndPage" parameterType="com.anfu.gas.pojo.self.StreetExamplePageInfo" resultMap="com.anfu.gas.mapper.StreetMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.StreetMapper.Base_Column_List" />
+	    from street
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.StreetMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select> 
+
+	  <select id="selectEnterpriseByExampleAndPage" parameterType="com.anfu.gas.pojo.self.EnterpriseExamplePageInfo" resultMap="com.anfu.gas.mapper.EnterpriseMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.EnterpriseMapper.Base_Column_List" />
+	    from enterprise
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.EnterpriseMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select> 
+	  
+	  <select id="selectGasAlarmByExampleAndPage" parameterType="com.anfu.gas.pojo.self.GasAlarmExamplePageInfo" resultMap="com.anfu.gas.mapper.GasAlarmMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.GasAlarmMapper.Base_Column_List" />
+	    from gas_alarm
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.GasAlarmMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select>  	
+	    
+	  <select id="selectGasFaultByExampleAndPage" parameterType="com.anfu.gas.pojo.self.GasFaultExamplePageInfo" resultMap="com.anfu.gas.mapper.GasFaultMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.GasFaultMapper.Base_Column_List" />
+	    from gas_fault
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.GasFaultMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select>  	
+	    
+	  <select id="selectSubAreaByExampleAndPage" parameterType="com.anfu.gas.pojo.self.SubAreaExamplePageInfo" resultMap="com.anfu.gas.mapper.SubAreaMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.SubAreaMapper.Base_Column_List" />
+	    from sub_area
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.SubAreaMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select>  	
+	    
+	  <select id="selectGasDataByExampleAndPage" parameterType="com.anfu.gas.pojo.self.GasDataExamplePageInfo" resultMap="com.anfu.gas.mapper.GasDataMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.GasDataMapper.Base_Column_List" />
+	    from gas_data
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.GasDataMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select> 
+	   	  
+	  <select id="selectGasTypeByExampleAndPage" parameterType="com.anfu.gas.pojo.self.GasTypeExamplePageInfo" resultMap="com.anfu.gas.mapper.GasTypeMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.GasTypeMapper.Base_Column_List" />
+	    from gas_type
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.GasTypeMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select>
+	    	  
+	  <select id="selectGasDetectorTypeByExampleAndPage" parameterType="com.anfu.gas.pojo.self.GasDetectorTypeExamplePageInfo" resultMap="com.anfu.gas.mapper.GasDetectorTypeMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.GasDetectorTypeMapper.Base_Column_List" />
+	    from gas_detector_type
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.GasDetectorTypeMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select>  
+ 
+	  <select id="selectGasHostTypeByExampleAndPage" parameterType="com.anfu.gas.pojo.self.GasHostTypeExamplePageInfo" resultMap="com.anfu.gas.mapper.GasHostTypeMapper.BaseResultMap">
+	    select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="com.anfu.gas.mapper.GasHostTypeMapper.Base_Column_List" />
+	    from gas_host_type
+	    <if test="_parameter != null">
+	      <include refid="com.anfu.gas.mapper.GasHostTypeMapper.Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
+		<if test="pageStart != null and pageSize != null">
+	      limit #{pageStart},#{pageSize}
+	    </if>    
+	  </select>  	  
+	   	  	   	  
+</mapper>

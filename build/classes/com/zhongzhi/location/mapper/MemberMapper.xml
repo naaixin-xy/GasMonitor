@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.zhongzhi.location.mapper.MemberMapper"> 
+  	<select id="getMemberCount" parameterType="com.zhongzhi.location.pojo.Member" resultType="int">
+			select
+				count(*)
+			from
+				all_user
+			<where>
+				<if test="id!=null">
+					and user_id=#{id}
+				</if>
+				<if test="account!=null and account!=''">
+					and account=#{account}
+				</if>
+				<if test="password!=null and password!=''">
+					and password=#{password}
+				</if>
+				<if test="category!=null">
+					and category=#{category}
+				</if>
+				<if test="name!=null and name!=''">
+					and user_name=#{name}
+				</if>
+				<if test="parentId!=null" >
+					and parent_id=#{parentId}
+				</if>
+				<if test="phone!=null and phone!=''">
+					and phone=#{phone}
+				</if>
+				<if test="deviceCount!=null">
+					and device_count=#{deviceCount}
+				</if>
+				<if test="stock!=null">
+					and stock=#{stock}
+				</if>
+				<if test="purchaseQuantity!=null">
+					and purchase_quantity=#{purchaseQuantity}
+				</if>
+				<if test="address!=null and address!=''">
+					and address=#{address}
+				</if>											
+				<if test="contact!=null and contact!=''">
+					and contact=#{contact}
+				</if>
+				<if test="offlineAlarmTime!=null">
+					and offline_alarm_time=#{offlineAlarmTime}
+				</if>
+				<if test="createTime!=null">
+					and create_time=#{createTime}
+				</if>
+				<if test="modifyTime!=null">
+					and modify_time=#{modifyTime}
+				</if>				
+			</where>
+	</select>
+ 	<select id="getMemberCountByPage" parameterType="com.zhongzhi.location.pojo.MemberQueryParam" resultType="int">
+			select
+				count(*)
+			from
+				all_user
+			<where>
+				<if test="id!=null">
+					and user_id=#{id}
+				</if>
+				<if test="account!=null and account!=''">
+					and account=#{account}
+				</if>
+				<if test="password!=null and password!=''">
+					and password=#{password}
+				</if>
+				<if test="category!=null">
+					and category=#{category}
+				</if>
+				<if test="name!=null and name!=''">
+					and user_name=#{name}
+				</if>
+				<if test="parentId!=null" >
+					and parent_id=#{parentId}
+				</if>
+				<if test="phone!=null and phone!=''">
+					and phone=#{phone}
+				</if>
+				<if test="deviceCount!=null">
+					and device_count=#{deviceCount}
+				</if>
+				<if test="stock!=null">
+					and stock=#{stock}
+				</if>
+				<if test="purchaseQuantity!=null">
+					and purchase_quantity=#{purchaseQuantity}
+				</if>
+				<if test="address!=null and address!=''">
+					and address=#{address}
+				</if>											
+				<if test="contact!=null and contact!=''">
+					and contact=#{contact}
+				</if>
+				<if test="offlineAlarmTime!=null">
+					and offline_alarm_time=#{offlineAlarmTime}
+				</if>
+				<if test="createTime!=null">
+					and create_time=#{createTime}
+				</if>
+				<if test="modifyTime!=null">
+					and modify_time=#{modifyTime}
+				</if>				
+			</where>
+	</select>
+ 	<select id="memberQueryByPage" parameterType="com.zhongzhi.location.pojo.MemberQueryParam" resultMap="memberResultMap">
+			select
+				user_id,
+				account,
+				password,
+				category,
+				user_name,
+				parent_id,
+				phone,
+				device_count,
+				contact,
+				stock,
+				purchase_quantity,
+				address,
+				offline_alarm_time,				
+				create_time,
+				modify_time,
+				remark
+			from
+				all_user
+			<where>
+				<if test="id!=null">
+					and user_id=#{id}
+				</if>
+				<if test="account!=null and account!=''">
+					and account=#{account}
+				</if>
+				<if test="password!=null and password!=''">
+					and password=#{password}
+				</if>
+				<if test="category!=null">
+					and category=#{category}
+				</if>
+				<if test="name!=null and name!=''">
+					and user_name=#{name}
+				</if>
+				<if test="parentId!=null" >
+					and parent_id=#{parentId}
+				</if>
+				<if test="phone!=null and phone!=''">
+					and phone=#{phone}
+				</if>
+				<if test="deviceCount!=null">
+					and device_count=#{deviceCount}
+				</if>
+				<if test="stock!=null">
+					and stock=#{stock}
+				</if>
+				<if test="purchaseQuantity!=null">
+					and purchase_quantity=#{purchaseQuantity}
+				</if>
+				<if test="address!=null and address!=''">
+					and address=#{address}
+				</if>									
+				<if test="contact!=null and contact!=''">
+					and contact=#{contact}
+				</if>
+				<if test="offlineAlarmTime!=null">
+					and offline_alarm_time=#{offlineAlarmTime}
+				</if>
+				<if test="createTime!=null">
+					and create_time=#{createTime}
+				</if>
+				<if test="modifyTime!=null">
+					and modify_time=#{modifyTime}
+				</if>				
+			</where>
+			limit
+				#{pageStart},#{pageSize}
+	</select>
+	<select id="memberQuery" parameterType="com.zhongzhi.location.pojo.Member" resultMap="memberResultMap">
+			select
+				user_id,
+				account,
+				password,
+				category,
+				user_name,
+				parent_id,
+				phone,
+				device_count,
+				contact,
+				stock,
+				purchase_quantity,
+				address,
+				offline_alarm_time,				
+				create_time,
+				modify_time,
+				remark
+			from
+				all_user
+			<where>
+				<if test="id!=null">
+					and user_id=#{id}
+				</if>
+				<if test="account!=null and account!=''">
+					and account=#{account}
+				</if>
+				<if test="password!=null and password!=''">
+					and password=#{password}
+				</if>
+				<if test="category!=null">
+					and category=#{category}
+				</if>
+				<if test="name!=null and name!=''">
+					and user_name=#{name}
+				</if>
+				<if test="parentId!=null" >
+					and parent_id=#{parentId}
+				</if>
+				<if test="phone!=null and phone!=''">
+					and phone=#{phone}
+				</if>
+				<if test="deviceCount!=null">
+					and device_count=#{deviceCount}
+				</if>
+				<if test="stock!=null">
+					and stock=#{stock}
+				</if>
+				<if test="purchaseQuantity!=null">
+					and purchase_quantity=#{purchaseQuantity}
+				</if>
+				<if test="address!=null and address!=''">
+					and address=#{address}
+				</if>									
+				<if test="contact!=null and contact!=''">
+					and contact=#{contact}
+				</if>
+				<if test="offlineAlarmTime!=null">
+					and offline_alarm_time=#{offlineAlarmTime}
+				</if>
+				<if test="createTime!=null">
+					and create_time=#{createTime}
+				</if>
+				<if test="modifyTime!=null">
+					and modify_time=#{modifyTime}
+				</if>				
+			</where>
+	</select>
+		<select id="memberQueryById" parameterType="List" resultMap="memberResultMap">
+			select
+				user_id,
+				account,
+				password,
+				category,
+				user_name,
+				parent_id,
+				phone,
+				device_count,
+				contact,
+				stock,
+				purchase_quantity,
+				address,
+				offline_alarm_time,				
+				create_time,
+				modify_time,
+				remark
+			from
+				all_user
+			where user_id in
+				<foreach collection="list" item="itm" open="(" close=")" separator=",">#{itm}</foreach>
+	</select>
+	<select id="getMemberByAccountAndPassword" resultMap="memberResultMap">
+			select
+				user_id,
+				account,
+				password,
+				category,
+				user_name,
+				parent_id,
+				phone,
+				device_count,
+				contact,
+				stock,
+				purchase_quantity,
+				address,
+				offline_alarm_time,
+				create_time,
+				modify_time,
+				remark
+			from
+				all_user
+			where 
+				account=#{account} and password=#{password}
+	</select>
+	<resultMap id="memberResultMap" type="com.zhongzhi.location.pojo.Member">
+  			<id property="id" column="user_id" />
+  			<result property="account" column="account"/>
+   			<result property="password" column="password"/> 			
+  			<result property="category" column="category"/> 
+  			<result property="name" column="user_name"/> 
+  			<result property="parentId" column="parent_id"/> 
+  			<result property="phone" column="phone"/>
+  			<result property="deviceCount" column="device_count"/> 
+  			<result property="contact" column="contact"/> 
+  			<result property="stock" column="stock"/> 
+  			<result property="purchaseQuantity" column="purchase_quantity"/>
+			<result property="address" column="address"/>   
+			<result property="offlineAlarmTime" column="offline_alarm_time"/>   		
+  			<result property="createTime" column="create_time"/>  
+  			<result property="modifyTime" column="modify_time"/> 
+  			<result property="remark" column="remark"/>     			  			  					
+	</resultMap>
+	
+	<insert id="memberRegister" parameterType="com.zhongzhi.location.pojo.Member">
+		insert into all_user values(default,#{account},#{password},#{category},#{name},#{parentId},#{phone},#{deviceCount},#{contact},#{stock},#{purchaseQuantity},#{address},#{offline_alarm_time},#{createTime},#{modifyTime},#{remark})
+	</insert>
+	<update id="memberUpdate2" parameterType="com.zhongzhi.location.pojo.Member">
+		update all_user set account = #{account}, password= #{password},category = #{category},user_name = #{name},parent_id = #{parentId},phone = #{phone},
+		device_count = #{deviceCount},contact = #{contact},stock={#stock}, purchase_quantity={#purchaseQuantity}, address={#address},offlineAlarmTime=#{offline_alarm_time},create_time = #{createTime},modify_time = #{modifyTime},remark=#{remark} where user_id = #{id}
+	</update>
+	<update id="memberUpdate" parameterType="com.zhongzhi.location.pojo.Member">
+		update all_user 
+		<set>
+			user_id=#{id},
+			<if test="account!=null and account!=''">
+				account=#{account},
+			</if>
+			<if test="password!=null and password!=''">
+				password=#{password},
+			</if>
+			<if test="category!=null">
+				category=#{category},
+			</if>
+			<if test="name!=null and name!=''">
+				user_name=#{name},
+			</if>
+			<if test="parentId!=null" >
+				parent_id=#{parentId},
+			</if>
+			<if test="phone!=null and phone!=''">
+				phone=#{phone},
+			</if>
+			<if test="deviceCount!=null">
+				device_count=#{deviceCount},
+			</if>
+			<if test="contact!=null and contact!=''">
+				contact=#{contact},
+			</if>
+			<if test="stock!=null">
+				stock=#{stock},
+			</if>
+			<if test="purchaseQuantity!=null">
+				purchase_quantity=#{purchaseQuantity},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>	
+			<if test="offlineAlarmTime!=null">
+				offline_alarm_time=#{offlineAlarmTime},
+			</if>		
+			<if test="createTime!=null">
+				create_time=#{createTime},
+			</if>
+			<if test="modifyTime!=null">
+				modify_time=#{modifyTime},
+			</if>
+			<if test="remark!=null and remark!=''">
+				remark=#{remark}
+			</if>			
+		</set>
+		where
+			user_id=#{id}		
+	</update>	
+	<delete id="memberDelete" parameterType="int">
+		delete from all_user where user_id=#{id}
+	</delete>
+	<delete id="memberDeleteBatch" parameterType="List">
+		delete from all_user where user_id in
+		<foreach collection="list" item="itm" open="(" close=")" separator=",">#{itm}</foreach>
+	</delete>			
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<WatchedResource>WEB-INF/web.xml</WatchedResource>  
+	<Resource
+		driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/zhongzhi?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC"
+		username="root"
+		password="jianxin"
+		maxActive="5000"
+		maxIdle="2000"
+		name="test"
+		auth="Container"
+		maxWait="10000"
+		type="javax.sql.DataSource"
+	/>
+	
+	
+<!-- 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> -->
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3306/zhongzhi?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=UTC"></property> -->
+<!-- 		<property name="username" value="root"></property> -->
+<!-- 		<property name="password" value="jianxin"></property> -->
+</Context>

@@ -1,0 +1,1576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="twm.mybatisdemo.mapper.AllDeviceMapper">
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.AllDevice">
+    <id column="device_id" jdbcType="INTEGER" property="deviceId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_phone" jdbcType="VARCHAR" property="devicePhone" />
+    <result column="plate_number" jdbcType="VARCHAR" property="plateNumber" />
+    <result column="speed_limit" jdbcType="SMALLINT" property="speedLimit" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="oil_coefficient" jdbcType="REAL" property="oilCoefficient" />
+    <result column="maintain_distance_period" jdbcType="INTEGER" property="maintainDistancePeriod" />
+    <result column="last_maintain_kilometre" jdbcType="INTEGER" property="lastMaintainKilometre" />
+    <result column="filter_lbs" jdbcType="BIT" property="filterLbs" />
+    <result column="device_contact" jdbcType="VARCHAR" property="deviceContact" />
+    <result column="device_user_id" jdbcType="INTEGER" property="deviceUserId" />
+    <result column="device_password" jdbcType="VARCHAR" property="devicePassword" />
+    <result column="device_status" jdbcType="TINYINT" property="deviceStatus" />
+    <result column="connect_status" jdbcType="TINYINT" property="connectStatus" />
+    <result column="device_icon" jdbcType="TINYINT" property="deviceIcon" />
+    <result column="device_imei" jdbcType="VARCHAR" property="deviceImei" />
+    <result column="device_category" jdbcType="TINYINT" property="deviceCategory" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="active_time" jdbcType="TIMESTAMP" property="activeTime" />
+    <result column="due_time" jdbcType="TIMESTAMP" property="dueTime" />
+    <result column="device_note" jdbcType="VARCHAR" property="deviceNote" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    device_id, device_name, device_phone, plate_number, speed_limit, contact_phone, oil_coefficient, 
+    maintain_distance_period, last_maintain_kilometre, filter_lbs, device_contact, device_user_id, 
+    device_password, device_status, connect_status, device_icon, device_imei, device_category, 
+    create_time, active_time, due_time, device_note, last_update_time, latitude, longitude
+  </sql>
+  <select id="selectByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from all_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from all_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample">
+    delete from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    insert into all_device (device_id, device_name, device_phone, 
+      plate_number, speed_limit, contact_phone, 
+      oil_coefficient, maintain_distance_period, last_maintain_kilometre, 
+      filter_lbs, device_contact, device_user_id, 
+      device_password, device_status, connect_status, 
+      device_icon, device_imei, device_category, 
+      create_time, active_time, due_time, 
+      device_note, last_update_time, latitude, 
+      longitude)
+    values (#{deviceId,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, #{devicePhone,jdbcType=VARCHAR}, 
+      #{plateNumber,jdbcType=VARCHAR}, #{speedLimit,jdbcType=SMALLINT}, #{contactPhone,jdbcType=VARCHAR}, 
+      #{oilCoefficient,jdbcType=REAL}, #{maintainDistancePeriod,jdbcType=INTEGER}, #{lastMaintainKilometre,jdbcType=INTEGER}, 
+      #{filterLbs,jdbcType=BIT}, #{deviceContact,jdbcType=VARCHAR}, #{deviceUserId,jdbcType=INTEGER}, 
+      #{devicePassword,jdbcType=VARCHAR}, #{deviceStatus,jdbcType=TINYINT}, #{connectStatus,jdbcType=TINYINT}, 
+      #{deviceIcon,jdbcType=TINYINT}, #{deviceImei,jdbcType=VARCHAR}, #{deviceCategory,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{activeTime,jdbcType=TIMESTAMP}, #{dueTime,jdbcType=TIMESTAMP}, 
+      #{deviceNote,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{latitude,jdbcType=DOUBLE}, 
+      #{longitude,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    insert into all_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="devicePhone != null">
+        device_phone,
+      </if>
+      <if test="plateNumber != null">
+        plate_number,
+      </if>
+      <if test="speedLimit != null">
+        speed_limit,
+      </if>
+      <if test="contactPhone != null">
+        contact_phone,
+      </if>
+      <if test="oilCoefficient != null">
+        oil_coefficient,
+      </if>
+      <if test="maintainDistancePeriod != null">
+        maintain_distance_period,
+      </if>
+      <if test="lastMaintainKilometre != null">
+        last_maintain_kilometre,
+      </if>
+      <if test="filterLbs != null">
+        filter_lbs,
+      </if>
+      <if test="deviceContact != null">
+        device_contact,
+      </if>
+      <if test="deviceUserId != null">
+        device_user_id,
+      </if>
+      <if test="devicePassword != null">
+        device_password,
+      </if>
+      <if test="deviceStatus != null">
+        device_status,
+      </if>
+      <if test="connectStatus != null">
+        connect_status,
+      </if>
+      <if test="deviceIcon != null">
+        device_icon,
+      </if>
+      <if test="deviceImei != null">
+        device_imei,
+      </if>
+      <if test="deviceCategory != null">
+        device_category,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activeTime != null">
+        active_time,
+      </if>
+      <if test="dueTime != null">
+        due_time,
+      </if>
+      <if test="deviceNote != null">
+        device_note,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="devicePhone != null">
+        #{devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null">
+        #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="speedLimit != null">
+        #{speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oilCoefficient != null">
+        #{oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="maintainDistancePeriod != null">
+        #{maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lastMaintainKilometre != null">
+        #{lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="filterLbs != null">
+        #{filterLbs,jdbcType=BIT},
+      </if>
+      <if test="deviceContact != null">
+        #{deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUserId != null">
+        #{deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="devicePassword != null">
+        #{devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        #{deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="connectStatus != null">
+        #{connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="deviceIcon != null">
+        #{deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="deviceImei != null">
+        #{deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCategory != null">
+        #{deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueTime != null">
+        #{dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceNote != null">
+        #{deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample" resultType="java.lang.Long">
+    select count(*) from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update all_device
+    <set>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceName != null">
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devicePhone != null">
+        device_phone = #{record.devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plateNumber != null">
+        plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speedLimit != null">
+        speed_limit = #{record.speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="record.contactPhone != null">
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oilCoefficient != null">
+        oil_coefficient = #{record.oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="record.maintainDistancePeriod != null">
+        maintain_distance_period = #{record.maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastMaintainKilometre != null">
+        last_maintain_kilometre = #{record.lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="record.filterLbs != null">
+        filter_lbs = #{record.filterLbs,jdbcType=BIT},
+      </if>
+      <if test="record.deviceContact != null">
+        device_contact = #{record.deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceUserId != null">
+        device_user_id = #{record.deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.devicePassword != null">
+        device_password = #{record.devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceStatus != null">
+        device_status = #{record.deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.connectStatus != null">
+        connect_status = #{record.connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.deviceIcon != null">
+        device_icon = #{record.deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="record.deviceImei != null">
+        device_imei = #{record.deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceCategory != null">
+        device_category = #{record.deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activeTime != null">
+        active_time = #{record.activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dueTime != null">
+        due_time = #{record.dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deviceNote != null">
+        device_note = #{record.deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update all_device
+    set device_id = #{record.deviceId,jdbcType=INTEGER},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_phone = #{record.devicePhone,jdbcType=VARCHAR},
+      plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      speed_limit = #{record.speedLimit,jdbcType=SMALLINT},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      oil_coefficient = #{record.oilCoefficient,jdbcType=REAL},
+      maintain_distance_period = #{record.maintainDistancePeriod,jdbcType=INTEGER},
+      last_maintain_kilometre = #{record.lastMaintainKilometre,jdbcType=INTEGER},
+      filter_lbs = #{record.filterLbs,jdbcType=BIT},
+      device_contact = #{record.deviceContact,jdbcType=VARCHAR},
+      device_user_id = #{record.deviceUserId,jdbcType=INTEGER},
+      device_password = #{record.devicePassword,jdbcType=VARCHAR},
+      device_status = #{record.deviceStatus,jdbcType=TINYINT},
+      connect_status = #{record.connectStatus,jdbcType=TINYINT},
+      device_icon = #{record.deviceIcon,jdbcType=TINYINT},
+      device_imei = #{record.deviceImei,jdbcType=VARCHAR},
+      device_category = #{record.deviceCategory,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      active_time = #{record.activeTime,jdbcType=TIMESTAMP},
+      due_time = #{record.dueTime,jdbcType=TIMESTAMP},
+      device_note = #{record.deviceNote,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      longitude = #{record.longitude,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    update all_device
+    <set>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="devicePhone != null">
+        device_phone = #{devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null">
+        plate_number = #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="speedLimit != null">
+        speed_limit = #{speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="contactPhone != null">
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oilCoefficient != null">
+        oil_coefficient = #{oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="maintainDistancePeriod != null">
+        maintain_distance_period = #{maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lastMaintainKilometre != null">
+        last_maintain_kilometre = #{lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="filterLbs != null">
+        filter_lbs = #{filterLbs,jdbcType=BIT},
+      </if>
+      <if test="deviceContact != null">
+        device_contact = #{deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUserId != null">
+        device_user_id = #{deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="devicePassword != null">
+        device_password = #{devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        device_status = #{deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="connectStatus != null">
+        connect_status = #{connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="deviceIcon != null">
+        device_icon = #{deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="deviceImei != null">
+        device_imei = #{deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCategory != null">
+        device_category = #{deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeTime != null">
+        active_time = #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueTime != null">
+        due_time = #{dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceNote != null">
+        device_note = #{deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    update all_device
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_phone = #{devicePhone,jdbcType=VARCHAR},
+      plate_number = #{plateNumber,jdbcType=VARCHAR},
+      speed_limit = #{speedLimit,jdbcType=SMALLINT},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      oil_coefficient = #{oilCoefficient,jdbcType=REAL},
+      maintain_distance_period = #{maintainDistancePeriod,jdbcType=INTEGER},
+      last_maintain_kilometre = #{lastMaintainKilometre,jdbcType=INTEGER},
+      filter_lbs = #{filterLbs,jdbcType=BIT},
+      device_contact = #{deviceContact,jdbcType=VARCHAR},
+      device_user_id = #{deviceUserId,jdbcType=INTEGER},
+      device_password = #{devicePassword,jdbcType=VARCHAR},
+      device_status = #{deviceStatus,jdbcType=TINYINT},
+      connect_status = #{connectStatus,jdbcType=TINYINT},
+      device_icon = #{deviceIcon,jdbcType=TINYINT},
+      device_imei = #{deviceImei,jdbcType=VARCHAR},
+      device_category = #{deviceCategory,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      active_time = #{activeTime,jdbcType=TIMESTAMP},
+      due_time = #{dueTime,jdbcType=TIMESTAMP},
+      device_note = #{deviceNote,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE}
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.AllDevice">
+    <id column="device_id" jdbcType="INTEGER" property="deviceId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_phone" jdbcType="VARCHAR" property="devicePhone" />
+    <result column="plate_number" jdbcType="VARCHAR" property="plateNumber" />
+    <result column="speed_limit" jdbcType="SMALLINT" property="speedLimit" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="oil_coefficient" jdbcType="REAL" property="oilCoefficient" />
+    <result column="maintain_distance_period" jdbcType="INTEGER" property="maintainDistancePeriod" />
+    <result column="last_maintain_kilometre" jdbcType="INTEGER" property="lastMaintainKilometre" />
+    <result column="filter_lbs" jdbcType="BIT" property="filterLbs" />
+    <result column="device_contact" jdbcType="VARCHAR" property="deviceContact" />
+    <result column="device_user_id" jdbcType="INTEGER" property="deviceUserId" />
+    <result column="device_password" jdbcType="VARCHAR" property="devicePassword" />
+    <result column="device_status" jdbcType="TINYINT" property="deviceStatus" />
+    <result column="connect_status" jdbcType="TINYINT" property="connectStatus" />
+    <result column="device_icon" jdbcType="TINYINT" property="deviceIcon" />
+    <result column="device_imei" jdbcType="VARCHAR" property="deviceImei" />
+    <result column="device_category" jdbcType="TINYINT" property="deviceCategory" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="active_time" jdbcType="TIMESTAMP" property="activeTime" />
+    <result column="due_time" jdbcType="TIMESTAMP" property="dueTime" />
+    <result column="device_note" jdbcType="VARCHAR" property="deviceNote" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    device_id, device_name, device_phone, plate_number, speed_limit, contact_phone, oil_coefficient, 
+    maintain_distance_period, last_maintain_kilometre, filter_lbs, device_contact, device_user_id, 
+    device_password, device_status, connect_status, device_icon, device_imei, device_category, 
+    create_time, active_time, due_time, device_note, last_update_time, latitude, longitude
+  </sql>
+  <select id="selectByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from all_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from all_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample">
+    delete from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    insert into all_device (device_id, device_name, device_phone, 
+      plate_number, speed_limit, contact_phone, 
+      oil_coefficient, maintain_distance_period, last_maintain_kilometre, 
+      filter_lbs, device_contact, device_user_id, 
+      device_password, device_status, connect_status, 
+      device_icon, device_imei, device_category, 
+      create_time, active_time, due_time, 
+      device_note, last_update_time, latitude, 
+      longitude)
+    values (#{deviceId,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, #{devicePhone,jdbcType=VARCHAR}, 
+      #{plateNumber,jdbcType=VARCHAR}, #{speedLimit,jdbcType=SMALLINT}, #{contactPhone,jdbcType=VARCHAR}, 
+      #{oilCoefficient,jdbcType=REAL}, #{maintainDistancePeriod,jdbcType=INTEGER}, #{lastMaintainKilometre,jdbcType=INTEGER}, 
+      #{filterLbs,jdbcType=BIT}, #{deviceContact,jdbcType=VARCHAR}, #{deviceUserId,jdbcType=INTEGER}, 
+      #{devicePassword,jdbcType=VARCHAR}, #{deviceStatus,jdbcType=TINYINT}, #{connectStatus,jdbcType=TINYINT}, 
+      #{deviceIcon,jdbcType=TINYINT}, #{deviceImei,jdbcType=VARCHAR}, #{deviceCategory,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{activeTime,jdbcType=TIMESTAMP}, #{dueTime,jdbcType=TIMESTAMP}, 
+      #{deviceNote,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{latitude,jdbcType=DOUBLE}, 
+      #{longitude,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    insert into all_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="devicePhone != null">
+        device_phone,
+      </if>
+      <if test="plateNumber != null">
+        plate_number,
+      </if>
+      <if test="speedLimit != null">
+        speed_limit,
+      </if>
+      <if test="contactPhone != null">
+        contact_phone,
+      </if>
+      <if test="oilCoefficient != null">
+        oil_coefficient,
+      </if>
+      <if test="maintainDistancePeriod != null">
+        maintain_distance_period,
+      </if>
+      <if test="lastMaintainKilometre != null">
+        last_maintain_kilometre,
+      </if>
+      <if test="filterLbs != null">
+        filter_lbs,
+      </if>
+      <if test="deviceContact != null">
+        device_contact,
+      </if>
+      <if test="deviceUserId != null">
+        device_user_id,
+      </if>
+      <if test="devicePassword != null">
+        device_password,
+      </if>
+      <if test="deviceStatus != null">
+        device_status,
+      </if>
+      <if test="connectStatus != null">
+        connect_status,
+      </if>
+      <if test="deviceIcon != null">
+        device_icon,
+      </if>
+      <if test="deviceImei != null">
+        device_imei,
+      </if>
+      <if test="deviceCategory != null">
+        device_category,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activeTime != null">
+        active_time,
+      </if>
+      <if test="dueTime != null">
+        due_time,
+      </if>
+      <if test="deviceNote != null">
+        device_note,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="devicePhone != null">
+        #{devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null">
+        #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="speedLimit != null">
+        #{speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oilCoefficient != null">
+        #{oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="maintainDistancePeriod != null">
+        #{maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lastMaintainKilometre != null">
+        #{lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="filterLbs != null">
+        #{filterLbs,jdbcType=BIT},
+      </if>
+      <if test="deviceContact != null">
+        #{deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUserId != null">
+        #{deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="devicePassword != null">
+        #{devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        #{deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="connectStatus != null">
+        #{connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="deviceIcon != null">
+        #{deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="deviceImei != null">
+        #{deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCategory != null">
+        #{deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueTime != null">
+        #{dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceNote != null">
+        #{deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample" resultType="java.lang.Long">
+    select count(*) from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update all_device
+    <set>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceName != null">
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devicePhone != null">
+        device_phone = #{record.devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plateNumber != null">
+        plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speedLimit != null">
+        speed_limit = #{record.speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="record.contactPhone != null">
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oilCoefficient != null">
+        oil_coefficient = #{record.oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="record.maintainDistancePeriod != null">
+        maintain_distance_period = #{record.maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastMaintainKilometre != null">
+        last_maintain_kilometre = #{record.lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="record.filterLbs != null">
+        filter_lbs = #{record.filterLbs,jdbcType=BIT},
+      </if>
+      <if test="record.deviceContact != null">
+        device_contact = #{record.deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceUserId != null">
+        device_user_id = #{record.deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.devicePassword != null">
+        device_password = #{record.devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceStatus != null">
+        device_status = #{record.deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.connectStatus != null">
+        connect_status = #{record.connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.deviceIcon != null">
+        device_icon = #{record.deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="record.deviceImei != null">
+        device_imei = #{record.deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceCategory != null">
+        device_category = #{record.deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activeTime != null">
+        active_time = #{record.activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dueTime != null">
+        due_time = #{record.dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deviceNote != null">
+        device_note = #{record.deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update all_device
+    set device_id = #{record.deviceId,jdbcType=INTEGER},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_phone = #{record.devicePhone,jdbcType=VARCHAR},
+      plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      speed_limit = #{record.speedLimit,jdbcType=SMALLINT},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      oil_coefficient = #{record.oilCoefficient,jdbcType=REAL},
+      maintain_distance_period = #{record.maintainDistancePeriod,jdbcType=INTEGER},
+      last_maintain_kilometre = #{record.lastMaintainKilometre,jdbcType=INTEGER},
+      filter_lbs = #{record.filterLbs,jdbcType=BIT},
+      device_contact = #{record.deviceContact,jdbcType=VARCHAR},
+      device_user_id = #{record.deviceUserId,jdbcType=INTEGER},
+      device_password = #{record.devicePassword,jdbcType=VARCHAR},
+      device_status = #{record.deviceStatus,jdbcType=TINYINT},
+      connect_status = #{record.connectStatus,jdbcType=TINYINT},
+      device_icon = #{record.deviceIcon,jdbcType=TINYINT},
+      device_imei = #{record.deviceImei,jdbcType=VARCHAR},
+      device_category = #{record.deviceCategory,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      active_time = #{record.activeTime,jdbcType=TIMESTAMP},
+      due_time = #{record.dueTime,jdbcType=TIMESTAMP},
+      device_note = #{record.deviceNote,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      longitude = #{record.longitude,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    update all_device
+    <set>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="devicePhone != null">
+        device_phone = #{devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null">
+        plate_number = #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="speedLimit != null">
+        speed_limit = #{speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="contactPhone != null">
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oilCoefficient != null">
+        oil_coefficient = #{oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="maintainDistancePeriod != null">
+        maintain_distance_period = #{maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lastMaintainKilometre != null">
+        last_maintain_kilometre = #{lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="filterLbs != null">
+        filter_lbs = #{filterLbs,jdbcType=BIT},
+      </if>
+      <if test="deviceContact != null">
+        device_contact = #{deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUserId != null">
+        device_user_id = #{deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="devicePassword != null">
+        device_password = #{devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        device_status = #{deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="connectStatus != null">
+        connect_status = #{connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="deviceIcon != null">
+        device_icon = #{deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="deviceImei != null">
+        device_imei = #{deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCategory != null">
+        device_category = #{deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeTime != null">
+        active_time = #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueTime != null">
+        due_time = #{dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceNote != null">
+        device_note = #{deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    update all_device
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_phone = #{devicePhone,jdbcType=VARCHAR},
+      plate_number = #{plateNumber,jdbcType=VARCHAR},
+      speed_limit = #{speedLimit,jdbcType=SMALLINT},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      oil_coefficient = #{oilCoefficient,jdbcType=REAL},
+      maintain_distance_period = #{maintainDistancePeriod,jdbcType=INTEGER},
+      last_maintain_kilometre = #{lastMaintainKilometre,jdbcType=INTEGER},
+      filter_lbs = #{filterLbs,jdbcType=BIT},
+      device_contact = #{deviceContact,jdbcType=VARCHAR},
+      device_user_id = #{deviceUserId,jdbcType=INTEGER},
+      device_password = #{devicePassword,jdbcType=VARCHAR},
+      device_status = #{deviceStatus,jdbcType=TINYINT},
+      connect_status = #{connectStatus,jdbcType=TINYINT},
+      device_icon = #{deviceIcon,jdbcType=TINYINT},
+      device_imei = #{deviceImei,jdbcType=VARCHAR},
+      device_category = #{deviceCategory,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      active_time = #{activeTime,jdbcType=TIMESTAMP},
+      due_time = #{dueTime,jdbcType=TIMESTAMP},
+      device_note = #{deviceNote,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE}
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.AllDevice">
+    <id column="device_id" jdbcType="INTEGER" property="deviceId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_phone" jdbcType="VARCHAR" property="devicePhone" />
+    <result column="plate_number" jdbcType="VARCHAR" property="plateNumber" />
+    <result column="speed_limit" jdbcType="SMALLINT" property="speedLimit" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="oil_coefficient" jdbcType="REAL" property="oilCoefficient" />
+    <result column="maintain_distance_period" jdbcType="INTEGER" property="maintainDistancePeriod" />
+    <result column="last_maintain_kilometre" jdbcType="INTEGER" property="lastMaintainKilometre" />
+    <result column="filter_lbs" jdbcType="BIT" property="filterLbs" />
+    <result column="device_contact" jdbcType="VARCHAR" property="deviceContact" />
+    <result column="device_user_id" jdbcType="INTEGER" property="deviceUserId" />
+    <result column="device_password" jdbcType="VARCHAR" property="devicePassword" />
+    <result column="device_status" jdbcType="TINYINT" property="deviceStatus" />
+    <result column="connect_status" jdbcType="TINYINT" property="connectStatus" />
+    <result column="device_icon" jdbcType="TINYINT" property="deviceIcon" />
+    <result column="device_imei" jdbcType="VARCHAR" property="deviceImei" />
+    <result column="device_category" jdbcType="TINYINT" property="deviceCategory" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="active_time" jdbcType="TIMESTAMP" property="activeTime" />
+    <result column="due_time" jdbcType="TIMESTAMP" property="dueTime" />
+    <result column="device_note" jdbcType="VARCHAR" property="deviceNote" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    device_id, device_name, device_phone, plate_number, speed_limit, contact_phone, oil_coefficient, 
+    maintain_distance_period, last_maintain_kilometre, filter_lbs, device_contact, device_user_id, 
+    device_password, device_status, connect_status, device_icon, device_imei, device_category, 
+    create_time, active_time, due_time, device_note, last_update_time, latitude, longitude
+  </sql>
+  <select id="selectByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from all_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from all_device
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample">
+    delete from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    insert into all_device (device_id, device_name, device_phone, 
+      plate_number, speed_limit, contact_phone, 
+      oil_coefficient, maintain_distance_period, last_maintain_kilometre, 
+      filter_lbs, device_contact, device_user_id, 
+      device_password, device_status, connect_status, 
+      device_icon, device_imei, device_category, 
+      create_time, active_time, due_time, 
+      device_note, last_update_time, latitude, 
+      longitude)
+    values (#{deviceId,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, #{devicePhone,jdbcType=VARCHAR}, 
+      #{plateNumber,jdbcType=VARCHAR}, #{speedLimit,jdbcType=SMALLINT}, #{contactPhone,jdbcType=VARCHAR}, 
+      #{oilCoefficient,jdbcType=REAL}, #{maintainDistancePeriod,jdbcType=INTEGER}, #{lastMaintainKilometre,jdbcType=INTEGER}, 
+      #{filterLbs,jdbcType=BIT}, #{deviceContact,jdbcType=VARCHAR}, #{deviceUserId,jdbcType=INTEGER}, 
+      #{devicePassword,jdbcType=VARCHAR}, #{deviceStatus,jdbcType=TINYINT}, #{connectStatus,jdbcType=TINYINT}, 
+      #{deviceIcon,jdbcType=TINYINT}, #{deviceImei,jdbcType=VARCHAR}, #{deviceCategory,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{activeTime,jdbcType=TIMESTAMP}, #{dueTime,jdbcType=TIMESTAMP}, 
+      #{deviceNote,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{latitude,jdbcType=DOUBLE}, 
+      #{longitude,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    insert into all_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="devicePhone != null">
+        device_phone,
+      </if>
+      <if test="plateNumber != null">
+        plate_number,
+      </if>
+      <if test="speedLimit != null">
+        speed_limit,
+      </if>
+      <if test="contactPhone != null">
+        contact_phone,
+      </if>
+      <if test="oilCoefficient != null">
+        oil_coefficient,
+      </if>
+      <if test="maintainDistancePeriod != null">
+        maintain_distance_period,
+      </if>
+      <if test="lastMaintainKilometre != null">
+        last_maintain_kilometre,
+      </if>
+      <if test="filterLbs != null">
+        filter_lbs,
+      </if>
+      <if test="deviceContact != null">
+        device_contact,
+      </if>
+      <if test="deviceUserId != null">
+        device_user_id,
+      </if>
+      <if test="devicePassword != null">
+        device_password,
+      </if>
+      <if test="deviceStatus != null">
+        device_status,
+      </if>
+      <if test="connectStatus != null">
+        connect_status,
+      </if>
+      <if test="deviceIcon != null">
+        device_icon,
+      </if>
+      <if test="deviceImei != null">
+        device_imei,
+      </if>
+      <if test="deviceCategory != null">
+        device_category,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activeTime != null">
+        active_time,
+      </if>
+      <if test="dueTime != null">
+        due_time,
+      </if>
+      <if test="deviceNote != null">
+        device_note,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="devicePhone != null">
+        #{devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null">
+        #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="speedLimit != null">
+        #{speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oilCoefficient != null">
+        #{oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="maintainDistancePeriod != null">
+        #{maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lastMaintainKilometre != null">
+        #{lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="filterLbs != null">
+        #{filterLbs,jdbcType=BIT},
+      </if>
+      <if test="deviceContact != null">
+        #{deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUserId != null">
+        #{deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="devicePassword != null">
+        #{devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        #{deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="connectStatus != null">
+        #{connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="deviceIcon != null">
+        #{deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="deviceImei != null">
+        #{deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCategory != null">
+        #{deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueTime != null">
+        #{dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceNote != null">
+        #{deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="twm.mybatisdemo.pojo.AllDeviceExample" resultType="java.lang.Long">
+    select count(*) from all_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update all_device
+    <set>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceName != null">
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devicePhone != null">
+        device_phone = #{record.devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plateNumber != null">
+        plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speedLimit != null">
+        speed_limit = #{record.speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="record.contactPhone != null">
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oilCoefficient != null">
+        oil_coefficient = #{record.oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="record.maintainDistancePeriod != null">
+        maintain_distance_period = #{record.maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastMaintainKilometre != null">
+        last_maintain_kilometre = #{record.lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="record.filterLbs != null">
+        filter_lbs = #{record.filterLbs,jdbcType=BIT},
+      </if>
+      <if test="record.deviceContact != null">
+        device_contact = #{record.deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceUserId != null">
+        device_user_id = #{record.deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.devicePassword != null">
+        device_password = #{record.devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceStatus != null">
+        device_status = #{record.deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.connectStatus != null">
+        connect_status = #{record.connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.deviceIcon != null">
+        device_icon = #{record.deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="record.deviceImei != null">
+        device_imei = #{record.deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceCategory != null">
+        device_category = #{record.deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activeTime != null">
+        active_time = #{record.activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dueTime != null">
+        due_time = #{record.dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deviceNote != null">
+        device_note = #{record.deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update all_device
+    set device_id = #{record.deviceId,jdbcType=INTEGER},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_phone = #{record.devicePhone,jdbcType=VARCHAR},
+      plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      speed_limit = #{record.speedLimit,jdbcType=SMALLINT},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      oil_coefficient = #{record.oilCoefficient,jdbcType=REAL},
+      maintain_distance_period = #{record.maintainDistancePeriod,jdbcType=INTEGER},
+      last_maintain_kilometre = #{record.lastMaintainKilometre,jdbcType=INTEGER},
+      filter_lbs = #{record.filterLbs,jdbcType=BIT},
+      device_contact = #{record.deviceContact,jdbcType=VARCHAR},
+      device_user_id = #{record.deviceUserId,jdbcType=INTEGER},
+      device_password = #{record.devicePassword,jdbcType=VARCHAR},
+      device_status = #{record.deviceStatus,jdbcType=TINYINT},
+      connect_status = #{record.connectStatus,jdbcType=TINYINT},
+      device_icon = #{record.deviceIcon,jdbcType=TINYINT},
+      device_imei = #{record.deviceImei,jdbcType=VARCHAR},
+      device_category = #{record.deviceCategory,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      active_time = #{record.activeTime,jdbcType=TIMESTAMP},
+      due_time = #{record.dueTime,jdbcType=TIMESTAMP},
+      device_note = #{record.deviceNote,jdbcType=VARCHAR},
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      longitude = #{record.longitude,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    update all_device
+    <set>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="devicePhone != null">
+        device_phone = #{devicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null">
+        plate_number = #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="speedLimit != null">
+        speed_limit = #{speedLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="contactPhone != null">
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oilCoefficient != null">
+        oil_coefficient = #{oilCoefficient,jdbcType=REAL},
+      </if>
+      <if test="maintainDistancePeriod != null">
+        maintain_distance_period = #{maintainDistancePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lastMaintainKilometre != null">
+        last_maintain_kilometre = #{lastMaintainKilometre,jdbcType=INTEGER},
+      </if>
+      <if test="filterLbs != null">
+        filter_lbs = #{filterLbs,jdbcType=BIT},
+      </if>
+      <if test="deviceContact != null">
+        device_contact = #{deviceContact,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUserId != null">
+        device_user_id = #{deviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="devicePassword != null">
+        device_password = #{devicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        device_status = #{deviceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="connectStatus != null">
+        connect_status = #{connectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="deviceIcon != null">
+        device_icon = #{deviceIcon,jdbcType=TINYINT},
+      </if>
+      <if test="deviceImei != null">
+        device_imei = #{deviceImei,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCategory != null">
+        device_category = #{deviceCategory,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeTime != null">
+        active_time = #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueTime != null">
+        due_time = #{dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceNote != null">
+        device_note = #{deviceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.AllDevice">
+    update all_device
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_phone = #{devicePhone,jdbcType=VARCHAR},
+      plate_number = #{plateNumber,jdbcType=VARCHAR},
+      speed_limit = #{speedLimit,jdbcType=SMALLINT},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      oil_coefficient = #{oilCoefficient,jdbcType=REAL},
+      maintain_distance_period = #{maintainDistancePeriod,jdbcType=INTEGER},
+      last_maintain_kilometre = #{lastMaintainKilometre,jdbcType=INTEGER},
+      filter_lbs = #{filterLbs,jdbcType=BIT},
+      device_contact = #{deviceContact,jdbcType=VARCHAR},
+      device_user_id = #{deviceUserId,jdbcType=INTEGER},
+      device_password = #{devicePassword,jdbcType=VARCHAR},
+      device_status = #{deviceStatus,jdbcType=TINYINT},
+      connect_status = #{connectStatus,jdbcType=TINYINT},
+      device_icon = #{deviceIcon,jdbcType=TINYINT},
+      device_imei = #{deviceImei,jdbcType=VARCHAR},
+      device_category = #{deviceCategory,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      active_time = #{activeTime,jdbcType=TIMESTAMP},
+      due_time = #{dueTime,jdbcType=TIMESTAMP},
+      device_note = #{deviceNote,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE}
+    where device_id = #{deviceId,jdbcType=INTEGER}
+  </update>
+</mapper>

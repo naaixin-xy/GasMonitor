@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anfu.gas.mapper.GasDataMapper">
+  <resultMap id="BaseResultMap" type="com.anfu.gas.pojo.GasData">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="host_id" jdbcType="INTEGER" property="hostId" />
+    <result column="detector_id" jdbcType="INTEGER" property="detectorId" />
+    <result column="host_address" jdbcType="INTEGER" property="hostAddress" />
+    <result column="detector_address" jdbcType="INTEGER" property="detectorAddress" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="data_value" jdbcType="INTEGER" property="dataValue" />
+    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
+    <result column="produce_time" jdbcType="TIMESTAMP" property="produceTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, host_id, detector_id, host_address, detector_address, type, data_value, enterprise_id, 
+    produce_time
+  </sql>
+  <select id="selectByExample" parameterType="com.anfu.gas.pojo.GasDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gas_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gas_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gas_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.anfu.gas.pojo.GasDataExample">
+    delete from gas_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.anfu.gas.pojo.GasData">
+    insert into gas_data (id, host_id, detector_id, 
+      host_address, detector_address, type, 
+      data_value, enterprise_id, produce_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{hostId,jdbcType=INTEGER}, #{detectorId,jdbcType=INTEGER}, 
+      #{hostAddress,jdbcType=INTEGER}, #{detectorAddress,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{dataValue,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{produceTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.anfu.gas.pojo.GasData">
+    insert into gas_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="hostId != null">
+        host_id,
+      </if>
+      <if test="detectorId != null">
+        detector_id,
+      </if>
+      <if test="hostAddress != null">
+        host_address,
+      </if>
+      <if test="detectorAddress != null">
+        detector_address,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="dataValue != null">
+        data_value,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="produceTime != null">
+        produce_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="hostId != null">
+        #{hostId,jdbcType=INTEGER},
+      </if>
+      <if test="detectorId != null">
+        #{detectorId,jdbcType=INTEGER},
+      </if>
+      <if test="hostAddress != null">
+        #{hostAddress,jdbcType=INTEGER},
+      </if>
+      <if test="detectorAddress != null">
+        #{detectorAddress,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="dataValue != null">
+        #{dataValue,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="produceTime != null">
+        #{produceTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.anfu.gas.pojo.GasDataExample" resultType="java.lang.Long">
+    select count(*) from gas_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gas_data
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.hostId != null">
+        host_id = #{record.hostId,jdbcType=INTEGER},
+      </if>
+      <if test="record.detectorId != null">
+        detector_id = #{record.detectorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hostAddress != null">
+        host_address = #{record.hostAddress,jdbcType=INTEGER},
+      </if>
+      <if test="record.detectorAddress != null">
+        detector_address = #{record.detectorAddress,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.dataValue != null">
+        data_value = #{record.dataValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.enterpriseId != null">
+        enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.produceTime != null">
+        produce_time = #{record.produceTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gas_data
+    set id = #{record.id,jdbcType=INTEGER},
+      host_id = #{record.hostId,jdbcType=INTEGER},
+      detector_id = #{record.detectorId,jdbcType=INTEGER},
+      host_address = #{record.hostAddress,jdbcType=INTEGER},
+      detector_address = #{record.detectorAddress,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      data_value = #{record.dataValue,jdbcType=INTEGER},
+      enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      produce_time = #{record.produceTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.anfu.gas.pojo.GasData">
+    update gas_data
+    <set>
+      <if test="hostId != null">
+        host_id = #{hostId,jdbcType=INTEGER},
+      </if>
+      <if test="detectorId != null">
+        detector_id = #{detectorId,jdbcType=INTEGER},
+      </if>
+      <if test="hostAddress != null">
+        host_address = #{hostAddress,jdbcType=INTEGER},
+      </if>
+      <if test="detectorAddress != null">
+        detector_address = #{detectorAddress,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="dataValue != null">
+        data_value = #{dataValue,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="produceTime != null">
+        produce_time = #{produceTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.anfu.gas.pojo.GasData">
+    update gas_data
+    set host_id = #{hostId,jdbcType=INTEGER},
+      detector_id = #{detectorId,jdbcType=INTEGER},
+      host_address = #{hostAddress,jdbcType=INTEGER},
+      detector_address = #{detectorAddress,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      data_value = #{dataValue,jdbcType=INTEGER},
+      enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      produce_time = #{produceTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

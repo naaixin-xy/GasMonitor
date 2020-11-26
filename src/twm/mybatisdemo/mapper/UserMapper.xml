@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="twm.mybatisdemo.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="category" jdbcType="TINYINT" property="category" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="stock" jdbcType="BIGINT" property="stock" />
+    <result column="purchase_quantity" jdbcType="BIGINT" property="purchaseQuantity" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="offline_alarm_time" jdbcType="BIGINT" property="offlineAlarmTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, account, password, category, user_name, parent_id, phone, device_count, 
+    contact, stock, purchase_quantity, address, offline_alarm_time, create_time, modify_time, 
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from all_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from all_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.User">
+    insert into all_user (user_id, account, password, 
+      category, user_name, parent_id, 
+      phone, device_count, contact, 
+      stock, purchase_quantity, address, 
+      offline_alarm_time, create_time, modify_time, 
+      remark)
+    values (#{userId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{category,jdbcType=TINYINT}, #{userName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR}, #{deviceCount,jdbcType=INTEGER}, #{contact,jdbcType=VARCHAR}, 
+      #{stock,jdbcType=BIGINT}, #{purchaseQuantity,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, 
+      #{offlineAlarmTime,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.User">
+    insert into all_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="deviceCount != null">
+        device_count,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="purchaseQuantity != null">
+        purchase_quantity,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="offlineAlarmTime != null">
+        offline_alarm_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=TINYINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCount != null">
+        #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=BIGINT},
+      </if>
+      <if test="purchaseQuantity != null">
+        #{purchaseQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="offlineAlarmTime != null">
+        #{offlineAlarmTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.User">
+    update all_user
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=TINYINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCount != null">
+        device_count = #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=BIGINT},
+      </if>
+      <if test="purchaseQuantity != null">
+        purchase_quantity = #{purchaseQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="offlineAlarmTime != null">
+        offline_alarm_time = #{offlineAlarmTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.User">
+    update all_user
+    set account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      category = #{category,jdbcType=TINYINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      device_count = #{deviceCount,jdbcType=INTEGER},
+      contact = #{contact,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=BIGINT},
+      purchase_quantity = #{purchaseQuantity,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      offline_alarm_time = #{offlineAlarmTime,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="category" jdbcType="TINYINT" property="category" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="stock" jdbcType="BIGINT" property="stock" />
+    <result column="purchase_quantity" jdbcType="BIGINT" property="purchaseQuantity" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="offline_alarm_time" jdbcType="BIGINT" property="offlineAlarmTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, account, password, category, user_name, parent_id, phone, device_count, 
+    contact, stock, purchase_quantity, address, offline_alarm_time, create_time, modify_time, 
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from all_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from all_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.User">
+    insert into all_user (user_id, account, password, 
+      category, user_name, parent_id, 
+      phone, device_count, contact, 
+      stock, purchase_quantity, address, 
+      offline_alarm_time, create_time, modify_time, 
+      remark)
+    values (#{userId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{category,jdbcType=TINYINT}, #{userName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR}, #{deviceCount,jdbcType=INTEGER}, #{contact,jdbcType=VARCHAR}, 
+      #{stock,jdbcType=BIGINT}, #{purchaseQuantity,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, 
+      #{offlineAlarmTime,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.User">
+    insert into all_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="deviceCount != null">
+        device_count,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="purchaseQuantity != null">
+        purchase_quantity,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="offlineAlarmTime != null">
+        offline_alarm_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=TINYINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCount != null">
+        #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=BIGINT},
+      </if>
+      <if test="purchaseQuantity != null">
+        #{purchaseQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="offlineAlarmTime != null">
+        #{offlineAlarmTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.User">
+    update all_user
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=TINYINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCount != null">
+        device_count = #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=BIGINT},
+      </if>
+      <if test="purchaseQuantity != null">
+        purchase_quantity = #{purchaseQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="offlineAlarmTime != null">
+        offline_alarm_time = #{offlineAlarmTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.User">
+    update all_user
+    set account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      category = #{category,jdbcType=TINYINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      device_count = #{deviceCount,jdbcType=INTEGER},
+      contact = #{contact,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=BIGINT},
+      purchase_quantity = #{purchaseQuantity,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      offline_alarm_time = #{offlineAlarmTime,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="twm.mybatisdemo.pojo.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="category" jdbcType="TINYINT" property="category" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="stock" jdbcType="BIGINT" property="stock" />
+    <result column="purchase_quantity" jdbcType="BIGINT" property="purchaseQuantity" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="offline_alarm_time" jdbcType="BIGINT" property="offlineAlarmTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, account, password, category, user_name, parent_id, phone, device_count, 
+    contact, stock, purchase_quantity, address, offline_alarm_time, create_time, modify_time, 
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from all_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from all_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="twm.mybatisdemo.pojo.User">
+    insert into all_user (user_id, account, password, 
+      category, user_name, parent_id, 
+      phone, device_count, contact, 
+      stock, purchase_quantity, address, 
+      offline_alarm_time, create_time, modify_time, 
+      remark)
+    values (#{userId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{category,jdbcType=TINYINT}, #{userName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR}, #{deviceCount,jdbcType=INTEGER}, #{contact,jdbcType=VARCHAR}, 
+      #{stock,jdbcType=BIGINT}, #{purchaseQuantity,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, 
+      #{offlineAlarmTime,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="twm.mybatisdemo.pojo.User">
+    insert into all_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="deviceCount != null">
+        device_count,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="purchaseQuantity != null">
+        purchase_quantity,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="offlineAlarmTime != null">
+        offline_alarm_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=TINYINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCount != null">
+        #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=BIGINT},
+      </if>
+      <if test="purchaseQuantity != null">
+        #{purchaseQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="offlineAlarmTime != null">
+        #{offlineAlarmTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="twm.mybatisdemo.pojo.User">
+    update all_user
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=TINYINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCount != null">
+        device_count = #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=BIGINT},
+      </if>
+      <if test="purchaseQuantity != null">
+        purchase_quantity = #{purchaseQuantity,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="offlineAlarmTime != null">
+        offline_alarm_time = #{offlineAlarmTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="twm.mybatisdemo.pojo.User">
+    update all_user
+    set account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      category = #{category,jdbcType=TINYINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      device_count = #{deviceCount,jdbcType=INTEGER},
+      contact = #{contact,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=BIGINT},
+      purchase_quantity = #{purchaseQuantity,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      offline_alarm_time = #{offlineAlarmTime,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
